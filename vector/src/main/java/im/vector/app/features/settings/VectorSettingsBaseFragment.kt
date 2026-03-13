@@ -24,8 +24,6 @@ import im.vector.app.core.platform.VectorBaseActivity
 import im.vector.app.core.platform.VectorViewEvents
 import im.vector.app.core.platform.VectorViewModel
 import im.vector.app.core.utils.toast
-import im.vector.app.features.analytics.AnalyticsTracker
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.lib.strings.CommonStrings
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

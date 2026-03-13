@@ -44,11 +44,6 @@ import im.vector.app.core.utils.copyToClipboard
 import im.vector.app.core.utils.openFileSelection
 import im.vector.app.core.utils.toast
 import im.vector.app.databinding.DialogImportE2eKeysBinding
-import im.vector.app.features.analytics.AnalyticsConfig
-import im.vector.app.features.analytics.plan.MobileScreen
-import im.vector.app.features.analytics.ui.consent.AnalyticsConsentViewActions
-import im.vector.app.features.analytics.ui.consent.AnalyticsConsentViewModel
-import im.vector.app.features.analytics.ui.consent.AnalyticsConsentViewState
 import im.vector.app.features.crypto.keys.KeysExporter
 import im.vector.app.features.crypto.keys.KeysImporter
 import im.vector.app.features.crypto.keysbackup.settings.KeysBackupManageActivity

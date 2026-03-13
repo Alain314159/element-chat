@@ -26,8 +26,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.utils.AssetReader
 import im.vector.app.databinding.FragmentLoginWebBinding
-import im.vector.app.features.signout.soft.SoftLogoutAction
-import im.vector.app.features.signout.soft.SoftLogoutViewModel
 import im.vector.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.auth.data.Credentials
 import org.matrix.android.sdk.api.util.MatrixJsonParser

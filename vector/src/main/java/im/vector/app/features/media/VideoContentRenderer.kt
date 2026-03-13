@@ -15,7 +15,6 @@ import androidx.core.view.isVisible
 import im.vector.app.core.di.ActiveSessionHolder
 import im.vector.app.core.error.ErrorFormatter
 import im.vector.app.core.files.LocalFilesHelper
-import im.vector.app.features.session.coroutineScope
 import im.vector.lib.strings.CommonStrings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

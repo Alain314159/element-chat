@@ -15,7 +15,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import im.vector.app.R
 import im.vector.app.core.di.ActiveSessionHolder
-import im.vector.app.features.session.coroutineScope
 import im.vector.app.features.voice.AbstractVoiceRecorderQ
 import im.vector.app.features.voicebroadcast.model.VoiceBroadcast
 import im.vector.app.features.voicebroadcast.model.VoiceBroadcastEvent

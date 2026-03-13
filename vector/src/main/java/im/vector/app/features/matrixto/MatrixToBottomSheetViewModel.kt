@@ -20,8 +20,6 @@ import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.error.ErrorFormatter
 import im.vector.app.core.platform.VectorViewModel
 import im.vector.app.core.resources.StringProvider
-import im.vector.app.features.analytics.AnalyticsTracker
-import im.vector.app.features.analytics.extensions.toAnalyticsJoinedRoom
 import im.vector.app.features.createdirect.DirectRoomHelper
 import im.vector.lib.strings.CommonStrings
 import kotlinx.coroutines.Dispatchers

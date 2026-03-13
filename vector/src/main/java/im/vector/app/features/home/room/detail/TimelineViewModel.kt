@@ -30,11 +30,6 @@ import im.vector.app.core.platform.VectorViewModel
 import im.vector.app.core.resources.BuildMeta
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.utils.BehaviorDataSource
-import im.vector.app.features.analytics.AnalyticsTracker
-import im.vector.app.features.analytics.DecryptionFailureTracker
-import im.vector.app.features.analytics.extensions.toAnalyticsJoinedRoom
-import im.vector.app.features.analytics.plan.CreatedRoom
-import im.vector.app.features.analytics.plan.JoinedRoom
 import im.vector.app.features.call.conference.ConferenceEvent
 import im.vector.app.features.call.conference.JitsiActiveConferenceHolder
 import im.vector.app.features.call.conference.JitsiService
@@ -57,7 +52,6 @@ import im.vector.app.features.notifications.NotificationDrawerManager
 import im.vector.app.features.raw.wellknown.CryptoConfig
 import im.vector.app.features.raw.wellknown.getOutboundSessionKeySharingStrategyOrDefault
 import im.vector.app.features.raw.wellknown.withElementWellKnown
-import im.vector.app.features.session.coroutineScope
 import im.vector.app.features.settings.VectorDataStore
 import im.vector.app.features.settings.VectorPreferences
 import im.vector.app.features.voicebroadcast.VoiceBroadcastHelper

@@ -29,7 +29,6 @@ import im.vector.app.features.crypto.verification.user.VerificationTransactionDa
 import im.vector.app.features.crypto.verification.user.toDataClass
 import im.vector.app.features.raw.wellknown.getElementWellknown
 import im.vector.app.features.raw.wellknown.isSecureBackupRequired
-import im.vector.app.features.session.coroutineScope
 import im.vector.lib.strings.CommonStrings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter

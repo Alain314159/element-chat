@@ -21,7 +21,6 @@ import im.vector.app.core.platform.VectorBaseFragment
 import im.vector.app.databinding.FragmentDeactivateAccountBinding
 import im.vector.app.features.MainActivity
 import im.vector.app.features.MainActivityArgs
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.auth.ReAuthActivity
 import im.vector.app.features.settings.VectorSettingsActivity
 import im.vector.lib.strings.CommonStrings

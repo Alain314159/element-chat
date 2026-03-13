@@ -25,7 +25,6 @@ import im.vector.app.features.call.utils.awaitCreateOffer
 import im.vector.app.features.call.utils.awaitSetLocalDescription
 import im.vector.app.features.call.utils.awaitSetRemoteDescription
 import im.vector.app.features.call.utils.mapToCallCandidate
-import im.vector.app.features.session.coroutineScope
 import im.vector.lib.core.utils.flow.chunk
 import im.vector.lib.core.utils.timer.CountUpTimer
 import kotlinx.coroutines.CoroutineScope

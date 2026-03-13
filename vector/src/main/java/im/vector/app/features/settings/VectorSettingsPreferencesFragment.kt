@@ -23,7 +23,6 @@ import im.vector.app.core.preference.VectorSwitchPreference
 import im.vector.app.features.MainActivity
 import im.vector.app.features.MainActivityArgs
 import im.vector.app.features.VectorFeatures
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.settings.font.FontScaleSettingActivity
 import im.vector.app.features.themes.ThemeUtils
 import im.vector.lib.strings.CommonStrings

@@ -21,9 +21,6 @@ import im.vector.app.core.platform.StateView
 import im.vector.app.core.platform.VectorViewModel
 import im.vector.app.core.resources.DrawableProvider
 import im.vector.app.core.resources.StringProvider
-import im.vector.app.features.analytics.AnalyticsTracker
-import im.vector.app.features.analytics.extensions.toTrackingValue
-import im.vector.app.features.analytics.plan.UserProperties
 import im.vector.app.features.displayname.getBestName
 import im.vector.app.features.home.room.list.home.header.HomeRoomFilter
 import im.vector.app.features.room.LeaveRoomPrompt

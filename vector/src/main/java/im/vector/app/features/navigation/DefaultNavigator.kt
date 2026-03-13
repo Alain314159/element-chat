@@ -30,10 +30,6 @@ import im.vector.app.core.di.ActiveSessionHolder
 import im.vector.app.core.error.fatalError
 import im.vector.app.core.extensions.commitTransaction
 import im.vector.app.features.VectorFeatures
-import im.vector.app.features.analytics.AnalyticsTracker
-import im.vector.app.features.analytics.extensions.toAnalyticsViewRoom
-import im.vector.app.features.analytics.plan.ViewRoom
-import im.vector.app.features.analytics.ui.consent.AnalyticsOptInActivity
 import im.vector.app.features.call.conference.JitsiCallViewModel
 import im.vector.app.features.call.conference.VectorJitsiActivity
 import im.vector.app.features.call.transfer.CallTransferActivity
@@ -44,16 +40,11 @@ import im.vector.app.features.crypto.recover.BootstrapBottomSheet
 import im.vector.app.features.crypto.recover.SetupMode
 import im.vector.app.features.crypto.verification.SupportedVerificationMethodsProvider
 import im.vector.app.features.crypto.verification.self.SelfVerificationBottomSheet
-import im.vector.app.features.devtools.RoomDevToolActivity
 import im.vector.app.features.home.room.detail.RoomDetailActivity
 import im.vector.app.features.home.room.detail.arguments.TimelineArgs
 import im.vector.app.features.home.room.detail.search.SearchActivity
 import im.vector.app.features.home.room.detail.search.SearchArgs
 import im.vector.app.features.home.room.filtered.FilteredRoomsActivity
-import im.vector.app.features.home.room.threads.ThreadsActivity
-import im.vector.app.features.home.room.threads.arguments.ThreadListArgs
-import im.vector.app.features.home.room.threads.arguments.ThreadTimelineArgs
-import im.vector.app.features.invite.InviteUsersToRoomActivity
 import im.vector.app.features.location.LocationData
 import im.vector.app.features.location.LocationSharingActivity
 import im.vector.app.features.location.LocationSharingArgs
@@ -71,27 +62,12 @@ import im.vector.app.features.onboarding.OnboardingActivity
 import im.vector.app.features.pin.PinActivity
 import im.vector.app.features.pin.PinArgs
 import im.vector.app.features.pin.PinMode
-import im.vector.app.features.poll.PollMode
-import im.vector.app.features.poll.create.CreatePollActivity
-import im.vector.app.features.poll.create.CreatePollArgs
-import im.vector.app.features.roomdirectory.RoomDirectoryActivity
-import im.vector.app.features.roomdirectory.RoomDirectoryData
-import im.vector.app.features.roomdirectory.createroom.CreateRoomActivity
-import im.vector.app.features.roomdirectory.roompreview.RoomPreviewActivity
-import im.vector.app.features.roomdirectory.roompreview.RoomPreviewData
 import im.vector.app.features.roommemberprofile.RoomMemberProfileActivity
 import im.vector.app.features.roommemberprofile.RoomMemberProfileArgs
 import im.vector.app.features.roomprofile.RoomProfileActivity
 import im.vector.app.features.settings.VectorPreferences
 import im.vector.app.features.settings.VectorSettingsActivity
 import im.vector.app.features.share.SharedData
-import im.vector.app.features.signout.soft.SoftLogoutActivity
-import im.vector.app.features.spaces.InviteRoomSpaceChooserBottomSheet
-import im.vector.app.features.spaces.SpaceExploreActivity
-import im.vector.app.features.spaces.SpacePreviewActivity
-import im.vector.app.features.spaces.manage.ManageType
-import im.vector.app.features.spaces.manage.SpaceManageActivity
-import im.vector.app.features.spaces.people.SpacePeopleActivity
 import im.vector.app.features.terms.ReviewTermsActivity
 import im.vector.app.features.widgets.WidgetActivity
 import im.vector.app.features.widgets.WidgetArgsBuilder
@@ -120,7 +96,6 @@ class DefaultNavigator @Inject constructor(
         private val supportedVerificationMethodsProvider: SupportedVerificationMethodsProvider,
         private val features: VectorFeatures,
         private val coroutineScope: CoroutineScope,
-        private val analyticsTracker: AnalyticsTracker,
         private val debugNavigator: DebugNavigator,
 ) : Navigator {
 
@@ -151,21 +126,11 @@ class DefaultNavigator @Inject constructor(
             roomId: String,
             eventId: String?,
             buildTask: Boolean,
-            isInviteAlreadyAccepted: Boolean,
-            trigger: ViewRoom.Trigger?
+            isInviteAlreadyAccepted: Boolean
     ) {
         if (sessionHolder.getSafeActiveSession()?.getRoom(roomId) == null) {
             fatalError("Trying to open an unknown room $roomId", vectorPreferences.failFast())
             return
-        }
-
-        trigger?.let {
-            analyticsTracker.capture(
-                    sessionHolder.getActiveSession().getRoomSummary(roomId).toAnalyticsViewRoom(
-                            trigger = trigger,
-                            selectedSpace = spaceStateHandler.getCurrentSpace()
-                    )
-            )
         }
 
         val args = TimelineArgs(roomId = roomId, eventId = eventId, isInviteAlreadyAccepted = isInviteAlreadyAccepted)

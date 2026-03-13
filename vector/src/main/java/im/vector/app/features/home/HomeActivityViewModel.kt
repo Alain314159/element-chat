@@ -23,11 +23,6 @@ import im.vector.app.core.pushers.PushersManager
 import im.vector.app.core.pushers.RegisterUnifiedPushUseCase
 import im.vector.app.core.pushers.UnregisterUnifiedPushUseCase
 import im.vector.app.core.session.EnsureSessionSyncingUseCase
-import im.vector.app.features.analytics.AnalyticsConfig
-import im.vector.app.features.analytics.AnalyticsTracker
-import im.vector.app.features.analytics.extensions.toAnalyticsType
-import im.vector.app.features.analytics.plan.Signup
-import im.vector.app.features.analytics.store.AnalyticsStore
 import im.vector.app.features.home.room.list.home.release.ReleaseNotesPreferencesStore
 import im.vector.app.features.login.ReAuthHelper
 import im.vector.app.features.onboarding.AuthenticationDescription
@@ -35,7 +30,6 @@ import im.vector.app.features.raw.wellknown.ElementWellKnown
 import im.vector.app.features.raw.wellknown.getElementWellknown
 import im.vector.app.features.raw.wellknown.isSecureBackupRequired
 import im.vector.app.features.raw.wellknown.withElementWellKnown
-import im.vector.app.features.session.coroutineScope
 import im.vector.app.features.settings.VectorPreferences
 import im.vector.app.features.voicebroadcast.recording.usecase.StopOngoingVoiceBroadcastUseCase
 import im.vector.lib.core.utils.compat.getParcelableExtraCompat

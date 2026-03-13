@@ -9,7 +9,6 @@ package im.vector.app.features.home.room.detail.timeline.factory
 
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.features.home.room.detail.timeline.item.PollResponseData
-import im.vector.app.features.poll.PollItemViewState
 import im.vector.lib.strings.CommonPlurals
 import im.vector.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.extensions.orFalse

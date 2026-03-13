@@ -12,7 +12,6 @@ import androidx.core.content.FileProvider
 import im.vector.app.core.resources.BuildMeta
 import im.vector.app.features.attachments.toContentAttachmentData
 import im.vector.app.features.home.room.detail.timeline.helper.AudioMessagePlaybackTracker
-import im.vector.app.features.session.coroutineScope
 import im.vector.app.features.voicebroadcast.VoiceBroadcastConstants
 import im.vector.app.features.voicebroadcast.VoiceBroadcastFailure
 import im.vector.app.features.voicebroadcast.model.MessageVoiceBroadcastInfoContent

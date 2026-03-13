@@ -28,8 +28,6 @@ import im.vector.app.core.extensions.replaceFragment
 import im.vector.app.core.platform.VectorBaseActivity
 import im.vector.app.databinding.ActivityRoomDetailBinding
 import im.vector.app.features.MainActivity
-import im.vector.app.features.analytics.plan.MobileScreen
-import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.home.room.breadcrumbs.BreadcrumbsFragment
 import im.vector.app.features.home.room.detail.arguments.TimelineArgs
 import im.vector.app.features.home.room.detail.timeline.helper.AudioMessagePlaybackTracker

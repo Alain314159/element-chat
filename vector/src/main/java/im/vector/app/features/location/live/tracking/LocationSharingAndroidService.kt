@@ -23,7 +23,6 @@ import im.vector.app.features.location.LocationData
 import im.vector.app.features.location.LocationTracker
 import im.vector.app.features.location.live.GetLiveLocationShareSummaryUseCase
 import im.vector.app.features.redaction.CheckIfEventIsRedactedUseCase
-import im.vector.app.features.session.coroutineScope
 import im.vector.lib.core.utils.compat.getParcelableExtraCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job

@@ -12,7 +12,6 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.resources.StringProvider
-import im.vector.app.features.session.coroutineScope
 import im.vector.lib.strings.CommonStrings
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

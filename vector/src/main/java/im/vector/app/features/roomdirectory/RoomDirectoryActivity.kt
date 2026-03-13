@@ -20,8 +20,6 @@ import im.vector.app.core.extensions.addFragmentToBackstack
 import im.vector.app.core.extensions.popBackstack
 import im.vector.app.core.platform.VectorBaseActivity
 import im.vector.app.databinding.ActivitySimpleBinding
-import im.vector.app.features.analytics.plan.MobileScreen
-import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.matrixto.MatrixToBottomSheet
 import im.vector.app.features.navigation.Navigator
 import im.vector.app.features.roomdirectory.createroom.CreateRoomArgs

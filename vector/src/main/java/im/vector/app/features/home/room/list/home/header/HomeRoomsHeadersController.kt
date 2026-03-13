@@ -18,7 +18,6 @@ import com.airbnb.epoxy.carousel
 import com.google.android.material.color.MaterialColors
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.utils.FirstItemUpdatedObserver
-import im.vector.app.features.analytics.AnalyticsTracker
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.app.features.home.room.list.RoomListListener
 import org.matrix.android.sdk.api.session.room.model.RoomSummary

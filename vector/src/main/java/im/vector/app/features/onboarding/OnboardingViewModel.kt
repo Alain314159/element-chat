@@ -29,9 +29,6 @@ import im.vector.app.core.utils.ensureProtocol
 import im.vector.app.core.utils.ensureTrailingSlash
 import im.vector.app.features.VectorFeatures
 import im.vector.app.features.VectorOverrides
-import im.vector.app.features.analytics.AnalyticsTracker
-import im.vector.app.features.analytics.extensions.toTrackingValue
-import im.vector.app.features.analytics.plan.UserProperties
 import im.vector.app.features.login.HomeServerConnectionConfigFactory
 import im.vector.app.features.login.LoginConfig
 import im.vector.app.features.login.LoginMode

@@ -30,8 +30,6 @@ import com.android.dialer.dialpadview.DialpadView
 import com.android.dialer.dialpadview.DigitsEditText
 import com.android.dialer.dialpadview.R
 import im.vector.app.core.extensions.singletonEntryPoint
-import im.vector.app.features.analytics.AnalyticsTracker
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.themes.ThemeUtils
 
 class DialPadFragment : Fragment(), TextWatcher {

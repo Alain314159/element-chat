@@ -19,10 +19,6 @@ import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.extensions.getVectorLastMessageContent
 import im.vector.app.core.platform.VectorViewModel
 import im.vector.app.core.resources.StringProvider
-import im.vector.app.features.analytics.AnalyticsTracker
-import im.vector.app.features.analytics.extensions.toAnalyticsComposer
-import im.vector.app.features.analytics.extensions.toAnalyticsJoinedRoom
-import im.vector.app.features.analytics.plan.JoinedRoom
 import im.vector.app.features.attachments.toContentAttachmentData
 import im.vector.app.features.command.CommandParser
 import im.vector.app.features.command.ParsedCommand
@@ -30,7 +26,6 @@ import im.vector.app.features.home.room.detail.ChatEffect
 import im.vector.app.features.home.room.detail.composer.rainbow.RainbowGenerator
 import im.vector.app.features.home.room.detail.composer.voice.VoiceMessageRecorderView
 import im.vector.app.features.home.room.detail.toMessageType
-import im.vector.app.features.session.coroutineScope
 import im.vector.app.features.settings.VectorPreferences
 import im.vector.app.features.voice.VoiceFailure
 import im.vector.app.features.voicebroadcast.VoiceBroadcastConstants

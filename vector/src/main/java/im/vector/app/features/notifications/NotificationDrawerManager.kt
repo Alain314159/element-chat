@@ -15,7 +15,6 @@ import im.vector.app.R
 import im.vector.app.core.resources.BuildMeta
 import im.vector.app.core.utils.FirstThrottler
 import im.vector.app.features.displayname.getBestName
-import im.vector.app.features.session.coroutineScope
 import im.vector.app.features.settings.VectorPreferences
 import kotlinx.coroutines.launch
 import org.matrix.android.sdk.api.session.Session

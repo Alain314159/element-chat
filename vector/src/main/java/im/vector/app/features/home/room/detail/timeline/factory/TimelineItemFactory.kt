@@ -10,7 +10,6 @@ package im.vector.app.features.home.room.detail.timeline.factory
 import im.vector.app.core.epoxy.TimelineEmptyItem
 import im.vector.app.core.epoxy.TimelineEmptyItem_
 import im.vector.app.core.epoxy.VectorEpoxyModel
-import im.vector.app.features.analytics.DecryptionFailureTracker
 import im.vector.app.features.home.room.detail.timeline.helper.TimelineEventVisibilityHelper
 import im.vector.app.features.voicebroadcast.VoiceBroadcastConstants
 import im.vector.app.features.voicebroadcast.model.isVoiceBroadcast

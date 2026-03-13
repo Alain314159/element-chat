@@ -11,7 +11,6 @@ import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.preference.VectorPreference
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.lib.strings.CommonStrings
 
 @AndroidEntryPoint

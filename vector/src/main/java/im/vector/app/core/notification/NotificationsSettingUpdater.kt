@@ -7,7 +7,6 @@
 
 package im.vector.app.core.notification
 
-import im.vector.app.features.session.coroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.matrix.android.sdk.api.session.Session

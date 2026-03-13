@@ -39,8 +39,6 @@ import im.vector.app.core.extensions.giveAccessibilityFocus
 import im.vector.app.core.extensions.singletonEntryPoint
 import im.vector.app.core.extensions.toMvRxBundle
 import im.vector.app.core.utils.ToolbarConfig
-import im.vector.app.features.analytics.AnalyticsTracker
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.navigation.Navigator
 import im.vector.lib.strings.CommonStrings
 import im.vector.lib.ui.styles.dialogs.MaterialProgressDialog

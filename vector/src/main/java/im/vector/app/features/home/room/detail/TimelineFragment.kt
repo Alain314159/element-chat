@@ -105,9 +105,6 @@ import im.vector.app.core.utils.toast
 import im.vector.app.databinding.DialogReportContentBinding
 import im.vector.app.databinding.FragmentTimelineBinding
 import im.vector.app.features.VectorFeatures
-import im.vector.app.features.analytics.extensions.toAnalyticsInteraction
-import im.vector.app.features.analytics.plan.Interaction
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.attachments.ShareIntentHandler
 import im.vector.app.features.call.SharedKnownCallsViewModel
 import im.vector.app.features.call.VectorCallActivity
@@ -162,13 +159,10 @@ import im.vector.app.features.notifications.NotificationUtils
 import im.vector.app.features.permalink.NavigationInterceptor
 import im.vector.app.features.permalink.PermalinkFactory
 import im.vector.app.features.permalink.PermalinkHandler
-import im.vector.app.features.poll.PollMode
 import im.vector.app.features.reactions.EmojiReactionPickerActivity
 import im.vector.app.features.roomprofile.RoomProfileActivity
-import im.vector.app.features.session.coroutineScope
 import im.vector.app.features.settings.VectorPreferences
 import im.vector.app.features.settings.VectorSettingsActivity
-import im.vector.app.features.spaces.share.ShareSpaceBottomSheet
 import im.vector.app.features.themes.ThemeUtils
 import im.vector.app.features.widgets.WidgetActivity
 import im.vector.app.features.widgets.WidgetArgs

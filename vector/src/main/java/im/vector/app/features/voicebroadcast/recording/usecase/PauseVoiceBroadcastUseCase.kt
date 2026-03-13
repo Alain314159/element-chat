@@ -7,7 +7,6 @@
 
 package im.vector.app.features.voicebroadcast.recording.usecase
 
-import im.vector.app.features.session.coroutineScope
 import im.vector.app.features.voicebroadcast.VoiceBroadcastConstants
 import im.vector.app.features.voicebroadcast.model.MessageVoiceBroadcastInfoContent
 import im.vector.app.features.voicebroadcast.model.VoiceBroadcastState

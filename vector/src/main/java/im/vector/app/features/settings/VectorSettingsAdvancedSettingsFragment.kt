@@ -17,9 +17,7 @@ import im.vector.app.core.preference.VectorPreference
 import im.vector.app.core.preference.VectorPreferenceCategory
 import im.vector.app.core.preference.VectorSwitchPreference
 import im.vector.app.core.utils.copyToClipboard
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.home.NightlyProxy
-import im.vector.app.features.rageshake.RageShake
 import im.vector.lib.strings.CommonStrings
 import javax.inject.Inject
 

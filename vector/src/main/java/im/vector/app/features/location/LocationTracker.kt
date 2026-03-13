@@ -18,7 +18,6 @@ import androidx.core.location.LocationListenerCompat
 import im.vector.app.core.di.ActiveSessionHolder
 import im.vector.app.core.resources.BuildMeta
 import im.vector.app.core.utils.PermissionChecker
-import im.vector.app.features.session.coroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.debounce

@@ -17,7 +17,6 @@ import im.vector.app.core.epoxy.noResultItem
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.ui.list.genericFooterItem
 import im.vector.app.features.home.AvatarRenderer
-import im.vector.app.features.spaces.manage.roomSelectionItem
 import im.vector.lib.core.utils.epoxy.charsequence.toEpoxyCharSequence
 import im.vector.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.util.MatrixItem

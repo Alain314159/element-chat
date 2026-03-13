@@ -14,7 +14,6 @@ import im.vector.app.core.notification.NotificationsSettingUpdater
 import im.vector.app.core.notification.PushRulesUpdater
 import im.vector.app.core.session.clientinfo.UpdateMatrixClientInfoUseCase
 import im.vector.app.features.call.webrtc.WebRtcCallManager
-import im.vector.app.features.session.coroutineScope
 import im.vector.app.features.settings.VectorPreferences
 import im.vector.app.features.settings.devices.v2.notification.UpdateNotificationSettingsAccountDataUseCase
 import kotlinx.coroutines.launch

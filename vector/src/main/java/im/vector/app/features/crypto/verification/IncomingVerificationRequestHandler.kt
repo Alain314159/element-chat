@@ -9,14 +9,12 @@ package im.vector.app.features.crypto.verification
 import android.content.Context
 import im.vector.app.R
 import im.vector.app.core.platform.VectorBaseActivity
-import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.displayname.getBestName
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.app.features.home.room.detail.RoomDetailActivity
 import im.vector.app.features.home.room.detail.arguments.TimelineArgs
 import im.vector.app.features.popup.PopupAlertManager
 import im.vector.app.features.popup.VerificationVectorAlert
-import im.vector.app.features.session.coroutineScope
 import im.vector.lib.core.utils.compat.getParcelableCompat
 import im.vector.lib.core.utils.timer.Clock
 import im.vector.lib.strings.CommonStrings

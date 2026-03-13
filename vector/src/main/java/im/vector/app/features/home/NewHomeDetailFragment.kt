@@ -52,7 +52,6 @@ import im.vector.app.features.popup.VerificationVectorAlert
 import im.vector.app.features.qrcode.QrCodeScannerActivity
 import im.vector.app.features.settings.VectorPreferences
 import im.vector.app.features.settings.VectorSettingsActivity.Companion.EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY_MANAGE_SESSIONS
-import im.vector.app.features.spaces.SpaceListBottomSheet
 import im.vector.app.features.workers.signout.BannerState
 import im.vector.app.features.workers.signout.ServerBackupStatusAction
 import im.vector.app.features.workers.signout.ServerBackupStatusViewModel

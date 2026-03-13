@@ -30,7 +30,6 @@ import im.vector.app.core.extensions.validateBackPressed
 import im.vector.app.core.platform.VectorBaseActivity
 import im.vector.app.core.utils.openUrlInChromeCustomTab
 import im.vector.app.databinding.ActivityLoginBinding
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.home.HomeActivity
 import im.vector.app.features.login.terms.LoginTermsFragment
 import im.vector.app.features.login.terms.LoginTermsFragmentArgument

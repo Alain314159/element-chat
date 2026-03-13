@@ -13,8 +13,6 @@ import com.google.android.material.tabs.TabLayout
 import im.vector.app.R
 import im.vector.app.core.epoxy.VectorEpoxyHolder
 import im.vector.app.core.epoxy.VectorEpoxyModel
-import im.vector.app.features.analytics.AnalyticsTracker
-import im.vector.app.features.analytics.plan.Interaction
 
 @EpoxyModelClass
 abstract class RoomFilterHeaderItem : VectorEpoxyModel<RoomFilterHeaderItem.Holder>(R.layout.item_home_filter_tabs) {

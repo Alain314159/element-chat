@@ -19,16 +19,13 @@ import androidx.core.view.updatePadding
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.observeK
-import im.vector.app.core.extensions.replaceChildFragment
 import im.vector.app.core.platform.VectorBaseFragment
 import im.vector.app.core.resources.BuildMeta
 import im.vector.app.core.utils.startSharePlainTextIntent
 import im.vector.app.databinding.FragmentHomeDrawerBinding
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.permalink.PermalinkFactory
 import im.vector.app.features.settings.VectorPreferences
 import im.vector.app.features.settings.VectorSettingsActivity
-import im.vector.app.features.spaces.SpaceListFragment
 import im.vector.app.features.usercode.UserCodeActivity
 import im.vector.app.features.workers.signout.SignOutUiWorker
 import im.vector.lib.strings.CommonStrings
@@ -57,9 +54,9 @@ class HomeDrawerFragment :
 
         sharedActionViewModel = activityViewModelProvider.get(HomeSharedActionViewModel::class.java)
 
-        if (savedInstanceState == null) {
-            replaceChildFragment(R.id.homeDrawerGroupListContainer, SpaceListFragment::class.java)
-        }
+        // Eliminado SpaceListFragment - ya no hay grupos/comunidades
+        // El drawer ahora está simplificado para chat de pareja
+        
         session.userService().getUserLive(session.myUserId).observeK(viewLifecycleOwner) { optionalUser ->
             val user = optionalUser?.getOrNull()
             if (user != null) {

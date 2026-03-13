@@ -24,7 +24,6 @@ import im.vector.app.core.platform.VectorBaseFragment
 import im.vector.app.core.utils.saveMedia
 import im.vector.app.core.utils.shareMedia
 import im.vector.app.databinding.FragmentRoomUploadsBinding
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.app.features.notifications.NotificationUtils
 import im.vector.app.features.roomprofile.RoomProfileArgs

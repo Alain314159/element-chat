@@ -25,7 +25,6 @@ import im.vector.app.core.extensions.replaceFragment
 import im.vector.app.core.platform.VectorBaseActivity
 import im.vector.app.core.utils.onPermissionDeniedSnackbar
 import im.vector.app.databinding.ActivitySimpleBinding
-import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.matrixto.MatrixToBottomSheet
 import im.vector.app.features.matrixto.OriginOfMatrixTo
 import im.vector.app.features.qrcode.QrCodeScannerEvents

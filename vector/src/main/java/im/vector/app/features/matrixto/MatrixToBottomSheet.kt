@@ -22,7 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.commitTransaction
 import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
 import im.vector.app.databinding.BottomSheetMatrixToCardBinding
-import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.lib.strings.CommonStrings
 import kotlinx.parcelize.Parcelize

@@ -8,8 +8,6 @@
 package im.vector.app.features.home
 
 import im.vector.app.features.home.room.list.UnreadCounterBadgeView
-import im.vector.app.features.spaces.GetSpacesUseCase
-import im.vector.app.features.spaces.notification.GetNotificationCountForSpacesUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import org.matrix.android.sdk.api.query.QueryStringValue

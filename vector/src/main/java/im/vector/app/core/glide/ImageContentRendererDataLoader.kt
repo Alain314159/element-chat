@@ -19,7 +19,6 @@ import com.bumptech.glide.signature.ObjectKey
 import im.vector.app.core.extensions.singletonEntryPoint
 import im.vector.app.core.files.LocalFilesHelper
 import im.vector.app.features.media.ImageContentRenderer
-import im.vector.app.features.session.coroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

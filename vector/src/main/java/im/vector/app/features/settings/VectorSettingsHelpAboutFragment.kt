@@ -18,7 +18,6 @@ import im.vector.app.core.utils.FirstThrottler
 import im.vector.app.core.utils.copyToClipboard
 import im.vector.app.core.utils.openAppSettingsPage
 import im.vector.app.core.utils.openUrlInChromeCustomTab
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.version.VersionProvider
 import im.vector.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.Matrix

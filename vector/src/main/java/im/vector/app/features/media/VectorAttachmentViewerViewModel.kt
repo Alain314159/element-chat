@@ -16,7 +16,6 @@ import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.VectorDummyViewState
 import im.vector.app.core.platform.VectorViewModel
 import im.vector.app.features.media.domain.usecase.DownloadMediaUseCase
-import im.vector.app.features.session.coroutineScope
 import kotlinx.coroutines.launch
 import org.matrix.android.sdk.api.session.Session
 

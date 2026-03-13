@@ -7,8 +7,6 @@
 
 package im.vector.app.features.matrixto
 
-import im.vector.app.features.analytics.plan.JoinedRoom
-import im.vector.app.features.analytics.plan.ViewRoom
 
 enum class OriginOfMatrixTo {
     LINK,

@@ -15,18 +15,12 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.util.Pair
 import androidx.fragment.app.FragmentActivity
-import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.crypto.recover.SetupMode
 import im.vector.app.features.displayname.getBestName
-import im.vector.app.features.home.room.threads.arguments.ThreadTimelineArgs
-import im.vector.app.features.location.LocationData
-import im.vector.app.features.location.LocationSharingMode
 import im.vector.app.features.login.LoginConfig
 import im.vector.app.features.matrixto.OriginOfMatrixTo
 import im.vector.app.features.media.AttachmentData
 import im.vector.app.features.pin.PinMode
-import im.vector.app.features.poll.PollMode
-import im.vector.app.features.roomdirectory.RoomDirectoryData
 import im.vector.app.features.roomdirectory.roompreview.RoomPreviewData
 import im.vector.app.features.settings.VectorSettingsActivity
 import im.vector.app.features.share.SharedData
@@ -49,8 +43,7 @@ interface Navigator {
             roomId: String,
             eventId: String? = null,
             buildTask: Boolean = false,
-            isInviteAlreadyAccepted: Boolean = false,
-            trigger: ViewRoom.Trigger? = null
+            isInviteAlreadyAccepted: Boolean = false
     )
 
     sealed class PostSwitchSpaceAction {
@@ -66,8 +59,6 @@ interface Navigator {
             postSwitchSpaceAction: PostSwitchSpaceAction,
     )
 
-    fun openSpacePreview(context: Context, spaceId: String)
-
     fun performDeviceVerification(context: Context, otherUserId: String, sasTransactionId: String)
 
     fun requestSessionVerification(context: Context, otherSessionId: String)
@@ -80,8 +71,6 @@ interface Navigator {
 
     fun openRoomForSharingAndFinish(activity: Activity, roomId: String, sharedData: SharedData)
 
-    fun openRoomPreview(context: Context, publicRoom: PublicRoom, roomDirectoryData: RoomDirectoryData)
-
     fun openRoomPreview(context: Context, roomPreviewData: RoomPreviewData, fromEmailInviteLink: PermalinkData.RoomEmailInviteLink? = null)
 
     fun openMatrixToBottomSheet(fragmentActivity: FragmentActivity, link: String, origin: OriginOfMatrixTo)
@@ -90,23 +79,11 @@ interface Navigator {
 
     fun openCreateDirectRoom(context: Context)
 
-    fun openInviteUsersToRoom(fragmentActivity: FragmentActivity, roomId: String)
-
-    fun openRoomDirectory(context: Context, initialFilter: String = "")
-
-    fun openRoomsFiltering(context: Context)
-
     fun openSettings(context: Context, directAccess: Int = VectorSettingsActivity.EXTRA_DIRECT_ACCESS_ROOT)
 
     fun openSettings(context: Context, payload: SettingsActivityPayload)
 
     fun openDebug(context: Context)
-
-    fun openKeysBackupSetup(context: Context, showManualExport: Boolean)
-
-    fun open4SSetup(fragmentActivity: FragmentActivity, setupMode: SetupMode)
-
-    fun openKeysBackupManager(context: Context)
 
     fun showGroupsUnsupportedWarning(context: Context)
 
@@ -119,8 +96,6 @@ interface Navigator {
     }
 
     fun openBigImageViewer(activity: Activity, sharedElement: View?, mxcUrl: String?, title: String?)
-
-    fun openAnalyticsOptIn(context: Context)
 
     fun openPinCode(
             context: Context,
@@ -164,32 +139,9 @@ interface Navigator {
 
     fun openSearch(context: Context, roomId: String, roomDisplayName: String?, roomAvatarUrl: String?)
 
-    fun openDevTools(context: Context, roomId: String)
-
     fun openCallTransfer(
             context: Context,
             activityResultLauncher: ActivityResultLauncher<Intent>,
             callId: String
-    )
-
-    fun openCreatePoll(context: Context, roomId: String, editedEventId: String?, mode: PollMode)
-
-    fun openLocationSharing(
-            context: Context,
-            roomId: String,
-            mode: LocationSharingMode,
-            initialLocationData: LocationData?,
-            locationOwnerId: String?
-    )
-
-    fun openLiveLocationMap(context: Context, roomId: String)
-
-    fun openThread(context: Context, threadTimelineArgs: ThreadTimelineArgs, eventIdToNavigate: String? = null)
-
-    fun openThreadList(context: Context, threadTimelineArgs: ThreadTimelineArgs)
-
-    fun openScreenSharingPermissionDialog(
-            screenCaptureIntent: Intent,
-            activityResultLauncher: ActivityResultLauncher<Intent>
     )
 }

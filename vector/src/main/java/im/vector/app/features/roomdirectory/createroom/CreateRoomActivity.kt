@@ -18,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
 import im.vector.app.core.platform.VectorBaseActivity
 import im.vector.app.databinding.ActivitySimpleBinding
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.roomdirectory.RoomDirectorySharedAction
 import im.vector.app.features.roomdirectory.RoomDirectorySharedActionViewModel
 import im.vector.lib.core.utils.compat.getParcelableCompat

@@ -18,8 +18,6 @@ import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.platform.StateView
 import im.vector.app.core.platform.VectorBaseFragment
 import im.vector.app.databinding.FragmentInvitesBinding
-import im.vector.app.features.analytics.plan.MobileScreen
-import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.home.room.list.RoomListListener
 import im.vector.app.features.notifications.NotificationDrawerManager
 import kotlinx.coroutines.flow.launchIn

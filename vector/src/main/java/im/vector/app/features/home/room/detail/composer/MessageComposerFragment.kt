@@ -52,7 +52,6 @@ import im.vector.app.core.utils.onPermissionDeniedDialog
 import im.vector.app.core.utils.registerForPermissionsResult
 import im.vector.app.databinding.FragmentComposerBinding
 import im.vector.app.features.VectorFeatures
-import im.vector.app.features.analytics.errors.ErrorTracker
 import im.vector.app.features.attachments.AttachmentType
 import im.vector.app.features.attachments.AttachmentTypeSelectorBottomSheet
 import im.vector.app.features.attachments.AttachmentTypeSelectorSharedAction
@@ -81,7 +80,6 @@ import im.vector.app.features.home.room.detail.timeline.action.MessageSharedActi
 import im.vector.app.features.home.room.detail.upgrade.MigrateRoomBottomSheet
 import im.vector.app.features.html.PillImageSpan
 import im.vector.app.features.location.LocationSharingMode
-import im.vector.app.features.poll.PollMode
 import im.vector.app.features.settings.VectorPreferences
 import im.vector.app.features.share.SharedData
 import im.vector.app.features.voice.VoiceFailure

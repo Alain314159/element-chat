@@ -26,8 +26,6 @@ import im.vector.app.core.extensions.vectorStore
 import im.vector.app.core.platform.VectorBaseActivity
 import im.vector.app.core.utils.deleteAllFiles
 import im.vector.app.databinding.ActivityMainBinding
-import im.vector.app.features.analytics.VectorAnalytics
-import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.home.HomeActivity
 import im.vector.app.features.home.ShortcutsHandler
 import im.vector.app.features.home.room.detail.RoomDetailActivity
@@ -38,8 +36,6 @@ import im.vector.app.features.pin.UnlockedActivity
 import im.vector.app.features.pin.lockscreen.crypto.LockScreenKeyRepository
 import im.vector.app.features.pin.lockscreen.pincode.PinCodeHelper
 import im.vector.app.features.popup.PopupAlertManager
-import im.vector.app.features.session.VectorSessionStore
-import im.vector.app.features.signout.hard.SignedOutActivity
 import im.vector.app.features.start.StartAppAction
 import im.vector.app.features.start.StartAppAndroidService
 import im.vector.app.features.start.StartAppViewEvent

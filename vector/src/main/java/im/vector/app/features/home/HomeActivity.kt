@@ -42,9 +42,6 @@ import im.vector.app.core.utils.startSharePlainTextIntent
 import im.vector.app.databinding.ActivityHomeBinding
 import im.vector.app.features.MainActivity
 import im.vector.app.features.MainActivityArgs
-import im.vector.app.features.analytics.accountdata.AnalyticsAccountDataViewModel
-import im.vector.app.features.analytics.plan.MobileScreen
-import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.crypto.recover.SetupMode
 import im.vector.app.features.home.room.list.actions.RoomListSharedAction
 import im.vector.app.features.home.room.list.actions.RoomListSharedActionViewModel
@@ -55,7 +52,6 @@ import im.vector.app.features.matrixto.OriginOfMatrixTo
 import im.vector.app.features.navigation.Navigator
 import im.vector.app.features.notifications.NotificationDrawerManager
 import im.vector.app.features.onboarding.AuthenticationDescription
-import im.vector.app.features.permalink.NavigationInterceptor
 import im.vector.app.features.permalink.PermalinkHandler
 import im.vector.app.features.permalink.PermalinkHandler.Companion.MATRIX_TO_CUSTOM_SCHEME_URL_BASE
 import im.vector.app.features.permalink.PermalinkHandler.Companion.ROOM_LINK_PREFIX
@@ -63,15 +59,7 @@ import im.vector.app.features.permalink.PermalinkHandler.Companion.USER_LINK_PRE
 import im.vector.app.features.popup.DefaultVectorAlert
 import im.vector.app.features.popup.PopupAlertManager
 import im.vector.app.features.popup.VerificationVectorAlert
-import im.vector.app.features.rageshake.ReportType
-import im.vector.app.features.rageshake.VectorUncaughtExceptionHandler
-import im.vector.app.features.session.coroutineScope
 import im.vector.app.features.settings.VectorSettingsActivity
-import im.vector.app.features.spaces.SpaceCreationActivity
-import im.vector.app.features.spaces.SpacePreviewActivity
-import im.vector.app.features.spaces.SpaceSettingsMenuBottomSheet
-import im.vector.app.features.spaces.invite.SpaceInviteBottomSheet
-import im.vector.app.features.spaces.share.ShareSpaceBottomSheet
 import im.vector.app.features.themes.ThemeUtils
 import im.vector.app.features.usercode.UserCodeActivity
 import im.vector.app.features.workers.signout.ServerBackupStatusViewModel
@@ -102,63 +90,27 @@ data class HomeActivityArgs(
 @AndroidEntryPoint
 class HomeActivity :
         VectorBaseActivity<ActivityHomeBinding>(),
-        NavigationInterceptor,
-        SpaceInviteBottomSheet.InteractionListener,
         MatrixToBottomSheet.InteractionListener,
         VectorMenuProvider {
 
-    private lateinit var sharedActionViewModel: HomeSharedActionViewModel
-    private lateinit var roomListSharedActionViewModel: RoomListSharedActionViewModel
-
     private val homeActivityViewModel: HomeActivityViewModel by viewModel()
-
-    @Suppress("UNUSED")
-    private val analyticsAccountDataViewModel: AnalyticsAccountDataViewModel by viewModel()
 
     @Suppress("UNUSED")
     private val userColorAccountDataViewModel: UserColorAccountDataViewModel by viewModel()
 
     private val serverBackupStatusViewModel: ServerBackupStatusViewModel by viewModel()
 
-    @Inject lateinit var vectorUncaughtExceptionHandler: VectorUncaughtExceptionHandler
     @Inject lateinit var notificationDrawerManager: NotificationDrawerManager
     @Inject lateinit var popupAlertManager: PopupAlertManager
     @Inject lateinit var shortcutsHandler: ShortcutsHandler
     @Inject lateinit var permalinkHandler: PermalinkHandler
     @Inject lateinit var avatarRenderer: AvatarRenderer
     @Inject lateinit var initSyncStepFormatter: InitSyncStepFormatter
-    @Inject lateinit var spaceStateHandler: SpaceStateHandler
     @Inject lateinit var unifiedPushHelper: UnifiedPushHelper
     @Inject lateinit var nightlyProxy: NightlyProxy
     @Inject lateinit var notificationPermissionManager: NotificationPermissionManager
 
-    private var isNewAppLayoutEnabled: Boolean = false // delete once old app layout is removed
-
-    private val createSpaceResultLauncher = registerStartForActivityResult { activityResult ->
-        if (activityResult.resultCode == Activity.RESULT_OK) {
-            val spaceId = SpaceCreationActivity.getCreatedSpaceId(activityResult.data)
-            val defaultRoomId = SpaceCreationActivity.getDefaultRoomId(activityResult.data)
-            val isJustMe = SpaceCreationActivity.isJustMeSpace(activityResult.data)
-            views.drawerLayout.closeDrawer(GravityCompat.START)
-
-            val postSwitchOption: Navigator.PostSwitchSpaceAction = if (defaultRoomId != null) {
-                Navigator.PostSwitchSpaceAction.OpenDefaultRoom(defaultRoomId, !isJustMe)
-            } else if (isJustMe) {
-                Navigator.PostSwitchSpaceAction.OpenAddExistingRooms
-            } else {
-                Navigator.PostSwitchSpaceAction.None
-            }
-            // Here we want to change current space to the newly created one, and then immediately open the default room
-            if (spaceId != null) {
-                navigator.switchToSpace(
-                        context = this,
-                        spaceId = spaceId,
-                        postSwitchOption,
-                )
-                roomListSharedActionViewModel.post(RoomListSharedAction.CloseBottomSheet)
-            }
-        }
-    }
+    private var isNewAppLayoutEnabled: Boolean = false
 
     private val postPermissionLauncher = registerForPermissionsResult { _, _ ->
         // Nothing to do with the result.
@@ -182,7 +134,7 @@ class HomeActivity :
 
     private val drawerListener = object : DrawerLayout.SimpleDrawerListener() {
         override fun onDrawerOpened(drawerView: View) {
-            analyticsTracker.screen(MobileScreen(screenName = MobileScreen.ScreenName.Sidebar))
+            // Analytics tracking removed
         }
 
         override fun onDrawerStateChanged(newState: Int) {
@@ -200,7 +152,6 @@ class HomeActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isNewAppLayoutEnabled = vectorPreferences.isNewAppLayoutEnabled()
-        analyticsScreenName = MobileScreen.ScreenName.Home
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks, false)
         sharedActionViewModel = viewModelProvider[HomeSharedActionViewModel::class.java]
         roomListSharedActionViewModel = viewModelProvider[RoomListSharedActionViewModel::class.java]
@@ -222,11 +173,6 @@ class HomeActivity :
                     when (sharedAction) {
                         is HomeActivitySharedAction.OpenDrawer -> views.drawerLayout.openDrawer(GravityCompat.START)
                         is HomeActivitySharedAction.CloseDrawer -> views.drawerLayout.closeDrawer(GravityCompat.START)
-                        is HomeActivitySharedAction.OpenSpacePreview -> startActivity(SpacePreviewActivity.newIntent(this, sharedAction.spaceId))
-                        is HomeActivitySharedAction.AddSpace -> createSpaceResultLauncher.launch(SpaceCreationActivity.newIntent(this))
-                        is HomeActivitySharedAction.ShowSpaceSettings -> showSpaceSettings(sharedAction.spaceId)
-                        is HomeActivitySharedAction.OpenSpaceInvite -> openSpaceInvite(sharedAction.spaceId)
-                        HomeActivitySharedAction.SendSpaceFeedBack -> bugReporter.openBugReportScreen(this, ReportType.SPACE_BETA_FEEDBACK)
                         HomeActivitySharedAction.OnCloseSpace -> onCloseSpace()
                     }
                 }
@@ -286,25 +232,9 @@ class HomeActivity :
         startActivity(Intent(this, ReleaseNotesActivity::class.java))
     }
 
-    private fun showSpaceSettings(spaceId: String) {
-        // open bottom sheet
-        SpaceSettingsMenuBottomSheet
-                .newInstance(spaceId, object : SpaceSettingsMenuBottomSheet.InteractionListener {
-                    override fun onShareSpaceSelected(spaceId: String) {
-                        ShareSpaceBottomSheet.show(supportFragmentManager, spaceId)
-                    }
-                })
-                .show(supportFragmentManager, "SPACE_SETTINGS")
-    }
-
     private fun showLayoutSettings() {
         HomeLayoutSettingBottomDialogFragment()
                 .show(supportFragmentManager, "LAYOUT_SETTINGS")
-    }
-
-    private fun openSpaceInvite(spaceId: String) {
-        SpaceInviteBottomSheet.newInstance(spaceId)
-                .show(supportFragmentManager, "SPACE_INVITE")
     }
 
     private fun onCloseSpace() {
@@ -583,17 +513,6 @@ class HomeActivity :
     override fun onResume() {
         super.onResume()
 
-        if (vectorUncaughtExceptionHandler.didAppCrash()) {
-            vectorUncaughtExceptionHandler.clearAppCrashStatus()
-
-            MaterialAlertDialogBuilder(this)
-                    .setMessage(CommonStrings.send_bug_report_app_crashed)
-                    .setCancelable(false)
-                    .setPositiveButton(CommonStrings.yes) { _, _ -> bugReporter.openBugReportScreen(this) }
-                    .setNegativeButton(CommonStrings.no) { _, _ -> bugReporter.deleteCrashFile() }
-                    .show()
-        }
-
         // Force remote backup state update to update the banner if needed
         serverBackupStatusViewModel.refreshRemoteStateIfNeeded()
 
@@ -620,14 +539,6 @@ class HomeActivity :
 
     override fun handleMenuItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_home_suggestion -> {
-                bugReporter.openBugReportScreen(this, ReportType.SUGGESTION)
-                true
-            }
-            R.id.menu_home_report_bug -> {
-                bugReporter.openBugReportScreen(this, ReportType.BUG_REPORT)
-                true
-            }
             R.id.menu_home_init_sync_legacy -> {
                 // Configure the SDK
                 initialSyncStrategy = InitialSyncStrategy.Legacy
@@ -672,7 +583,6 @@ class HomeActivity :
 
     private fun launchInviteFriends() {
         activeSessionHolder.getSafeActiveSession()?.permalinkService()?.createPermalink(sharedActionViewModel.session.myUserId)?.let { permalink ->
-            analyticsTracker.screen(MobileScreen(screenName = MobileScreen.ScreenName.InviteFriends))
             val text = getString(CommonStrings.invite_friends_text, permalink)
 
             startSharePlainTextIntent(
@@ -709,14 +619,6 @@ class HomeActivity :
         MatrixToBottomSheet.withLink(deepLink.toString(), OriginOfMatrixTo.LINK)
                 .show(supportFragmentManager, "HA#MatrixToBottomSheet")
         return true
-    }
-
-    override fun spaceInviteBottomSheetOnAccept(spaceId: String) {
-        navigator.switchToSpace(this, spaceId, Navigator.PostSwitchSpaceAction.OpenRoomList)
-    }
-
-    override fun spaceInviteBottomSheetOnDecline(spaceId: String) {
-        // nop
     }
 
     companion object {

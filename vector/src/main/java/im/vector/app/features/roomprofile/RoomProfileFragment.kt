@@ -36,8 +36,6 @@ import im.vector.app.core.utils.startSharePlainTextIntent
 import im.vector.app.databinding.DialogReportContentBinding
 import im.vector.app.databinding.FragmentMatrixProfileBinding
 import im.vector.app.databinding.ViewStubRoomProfileHeaderBinding
-import im.vector.app.features.analytics.plan.Interaction
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.app.features.home.room.detail.RoomDetailPendingAction
 import im.vector.app.features.home.room.detail.RoomDetailPendingActionStore

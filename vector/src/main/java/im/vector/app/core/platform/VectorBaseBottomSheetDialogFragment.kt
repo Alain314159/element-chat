@@ -31,8 +31,6 @@ import im.vector.app.core.di.ActivityEntryPoint
 import im.vector.app.core.extensions.singletonEntryPoint
 import im.vector.app.core.extensions.toMvRxBundle
 import im.vector.app.core.utils.DimensionConverter
-import im.vector.app.features.analytics.AnalyticsTracker
-import im.vector.app.features.analytics.plan.MobileScreen
 import io.github.hyuwah.draggableviewlib.Utils
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

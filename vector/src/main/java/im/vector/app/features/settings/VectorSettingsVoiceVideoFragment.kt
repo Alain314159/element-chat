@@ -19,7 +19,6 @@ import im.vector.app.R
 import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.preference.VectorPreference
 import im.vector.app.core.utils.RingtoneUtils
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.lib.core.utils.compat.getParcelableExtraCompat
 import im.vector.lib.strings.CommonStrings
 import javax.inject.Inject

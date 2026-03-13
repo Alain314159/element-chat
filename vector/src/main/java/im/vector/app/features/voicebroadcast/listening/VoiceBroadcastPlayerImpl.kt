@@ -13,7 +13,6 @@ import androidx.annotation.MainThread
 import im.vector.app.core.di.ActiveSessionHolder
 import im.vector.app.core.extensions.onFirst
 import im.vector.app.features.home.room.detail.timeline.helper.AudioMessagePlaybackTracker
-import im.vector.app.features.session.coroutineScope
 import im.vector.app.features.voicebroadcast.VoiceBroadcastFailure
 import im.vector.app.features.voicebroadcast.isLive
 import im.vector.app.features.voicebroadcast.listening.VoiceBroadcastPlayer.Listener

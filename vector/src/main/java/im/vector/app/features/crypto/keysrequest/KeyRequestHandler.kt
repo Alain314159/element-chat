@@ -13,7 +13,6 @@ import im.vector.app.core.date.DateFormatKind
 import im.vector.app.core.date.VectorDateFormatter
 import im.vector.app.features.popup.DefaultVectorAlert
 import im.vector.app.features.popup.PopupAlertManager
-import im.vector.app.features.session.coroutineScope
 import im.vector.lib.strings.CommonStrings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

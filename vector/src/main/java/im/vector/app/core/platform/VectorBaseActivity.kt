@@ -66,8 +66,6 @@ import im.vector.app.core.utils.toast
 import im.vector.app.features.MainActivity
 import im.vector.app.features.MainActivityArgs
 import im.vector.app.features.VectorFeatures
-import im.vector.app.features.analytics.AnalyticsTracker
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.configuration.VectorConfiguration
 import im.vector.app.features.consent.ConsentNotGivenHelper
 import im.vector.app.features.mdm.MdmService
@@ -75,10 +73,6 @@ import im.vector.app.features.navigation.Navigator
 import im.vector.app.features.pin.PinLocker
 import im.vector.app.features.pin.PinMode
 import im.vector.app.features.pin.UnlockedActivity
-import im.vector.app.features.rageshake.BugReportActivity
-import im.vector.app.features.rageshake.BugReporter
-import im.vector.app.features.rageshake.RageShake
-import im.vector.app.features.session.SessionListener
 import im.vector.app.features.settings.FontScalePreferences
 import im.vector.app.features.settings.FontScalePreferencesImpl
 import im.vector.app.features.settings.VectorLocaleProvider
@@ -98,13 +92,6 @@ import timber.log.Timber
 import javax.inject.Inject
 
 abstract class VectorBaseActivity<VB : ViewBinding> : AppCompatActivity(), MavericksView {
-    /* ==========================================================================================
-     * Analytics
-     * ========================================================================================== */
-
-    protected var analyticsScreenName: MobileScreen.ScreenName? = null
-
-    @Inject lateinit var analyticsTracker: AnalyticsTracker
 
     /* ==========================================================================================
      * View
@@ -155,10 +142,7 @@ abstract class VectorBaseActivity<VB : ViewBinding> : AppCompatActivity(), Maver
 
     private lateinit var configurationViewModel: ConfigurationViewModel
 
-    @Inject lateinit var sessionListener: SessionListener
-    @Inject lateinit var bugReporter: BugReporter
     @Inject lateinit var pinLocker: PinLocker
-    @Inject lateinit var rageShake: RageShake
     @Inject lateinit var buildMeta: BuildMeta
     @Inject lateinit var fontScalePreferences: FontScalePreferences
     @Inject lateinit var vectorLocale: VectorLocaleProvider
@@ -226,9 +210,6 @@ abstract class VectorBaseActivity<VB : ViewBinding> : AppCompatActivity(), Maver
             if (this@VectorBaseActivity !is UnlockedActivity && it == PinLocker.State.LOCKED) {
                 navigator.openPinCode(this, pinStartForActivityResult, PinMode.AUTH)
             }
-        }
-        sessionListener.globalErrorLiveData.observeEvent(this) {
-            handleGlobalError(it)
         }
 
         // Set flag FLAG_SECURE
@@ -405,14 +386,8 @@ abstract class VectorBaseActivity<VB : ViewBinding> : AppCompatActivity(), Maver
     override fun onResume() {
         super.onResume()
         Timber.i("onResume Activity ${javaClass.simpleName}")
-        analyticsScreenName?.let {
-            analyticsTracker.screen(MobileScreen(screenName = it))
-        }
         configurationViewModel.onActivityResumed()
 
-        if (this !is BugReportActivity && vectorPreferences.useRageshake()) {
-            rageShake.start()
-        }
         debugReceiver.register(this)
         mdmService.registerListener(this) {
             // Just log that a change occurred.
@@ -461,14 +436,12 @@ abstract class VectorBaseActivity<VB : ViewBinding> : AppCompatActivity(), Maver
         super.onPause()
         Timber.i("onPause Activity ${javaClass.simpleName}")
 
-        rageShake.stop()
         debugReceiver.unregister(this)
         mdmService.unregisterListener(this)
     }
 
     private val onMultiWindowModeChangedListener = Consumer<MultiWindowModeChangedInfo> {
         Timber.w("onMultiWindowModeChanged. isInMultiWindowMode: ${it.isInMultiWindowMode}")
-        bugReporter.inMultiWindowMode = it.isInMultiWindowMode
     }
 
     /* ==========================================================================================

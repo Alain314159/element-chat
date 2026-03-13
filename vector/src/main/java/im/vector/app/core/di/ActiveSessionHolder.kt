@@ -16,7 +16,6 @@ import im.vector.app.features.call.webrtc.WebRtcCallManager
 import im.vector.app.features.crypto.keysrequest.KeyRequestHandler
 import im.vector.app.features.crypto.verification.IncomingVerificationRequestHandler
 import im.vector.app.features.notifications.PushRuleTriggerListener
-import im.vector.app.features.session.SessionListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking

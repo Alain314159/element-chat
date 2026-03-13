@@ -45,7 +45,6 @@ import im.vector.app.core.utils.toast
 import im.vector.app.databinding.DialogChangePasswordBinding
 import im.vector.app.features.MainActivity
 import im.vector.app.features.MainActivityArgs
-import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.discovery.DiscoverySettingsFragment
 import im.vector.app.features.navigation.SettingsActivityPayload
 import im.vector.app.features.workers.signout.SignOutUiWorker

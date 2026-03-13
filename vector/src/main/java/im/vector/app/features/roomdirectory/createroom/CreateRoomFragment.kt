@@ -29,7 +29,6 @@ import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.platform.OnBackPressed
 import im.vector.app.core.platform.VectorBaseFragment
 import im.vector.app.databinding.FragmentCreateRoomBinding
-import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.navigation.Navigator
 import im.vector.app.features.roomdirectory.RoomDirectorySharedAction
 import im.vector.app.features.roomdirectory.RoomDirectorySharedActionViewModel

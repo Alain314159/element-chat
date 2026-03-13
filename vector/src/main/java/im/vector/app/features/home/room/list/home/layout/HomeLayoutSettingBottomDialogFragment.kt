@@ -16,7 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
 import im.vector.app.databinding.BottomSheetHomeLayoutSettingsBinding
-import im.vector.app.features.analytics.plan.Interaction
 import im.vector.app.features.home.room.list.home.HomeLayoutPreferencesStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
