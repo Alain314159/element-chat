@@ -34,8 +34,6 @@ import im.vector.app.features.call.conference.JitsiCallViewModel
 import im.vector.app.features.call.conference.VectorJitsiActivity
 import im.vector.app.features.call.transfer.CallTransferActivity
 import im.vector.app.features.createdirect.CreateDirectRoomActivity
-import im.vector.app.features.crypto.keysbackup.settings.KeysBackupManageActivity
-import im.vector.app.features.crypto.keysbackup.setup.KeysBackupSetupActivity
 import im.vector.app.features.crypto.recover.BootstrapBottomSheet
 import im.vector.app.features.crypto.recover.SetupMode
 import im.vector.app.features.crypto.verification.SupportedVerificationMethodsProvider
@@ -44,7 +42,6 @@ import im.vector.app.features.home.room.detail.RoomDetailActivity
 import im.vector.app.features.home.room.detail.arguments.TimelineArgs
 import im.vector.app.features.home.room.detail.search.SearchActivity
 import im.vector.app.features.home.room.detail.search.SearchArgs
-import im.vector.app.features.home.room.filtered.FilteredRoomsActivity
 import im.vector.app.features.location.LocationData
 import im.vector.app.features.location.LocationSharingActivity
 import im.vector.app.features.location.LocationSharingArgs
@@ -165,10 +162,10 @@ class DefaultNavigator @Inject constructor(
                 }
             }
             Navigator.PostSwitchSpaceAction.OpenAddExistingRooms -> {
-                startActivity(context, SpaceManageActivity.newIntent(context, spaceId, ManageType.AddRooms), false)
+                // Spaces feature removed
             }
             Navigator.PostSwitchSpaceAction.OpenRoomList -> {
-                startActivity(context, SpaceExploreActivity.newIntent(context, spaceId), buildTask = false)
+                // Spaces feature removed
             }
             is Navigator.PostSwitchSpaceAction.OpenDefaultRoom -> {
                 val args = TimelineArgs(
@@ -183,7 +180,7 @@ class DefaultNavigator @Inject constructor(
     }
 
     override fun openSpacePreview(context: Context, spaceId: String) {
-        startActivity(context, SpacePreviewActivity.newIntent(context, spaceId), false)
+        // Spaces feature removed
     }
 
     override fun performDeviceVerification(context: Context, otherUserId: String, sasTransactionId: String) {
@@ -277,10 +274,7 @@ class DefaultNavigator @Inject constructor(
     }
 
     override fun openRoomDirectory(context: Context, initialFilter: String) {
-        when (val currentSpace = spaceStateHandler.getCurrentSpace()) {
-            null -> RoomDirectoryActivity.getIntent(context, initialFilter)
-            else -> SpaceExploreActivity.newIntent(context, currentSpace.roomId)
-        }.start(context)
+        RoomDirectoryActivity.getIntent(context, initialFilter).start(context)
     }
 
     override fun openCreateRoom(context: Context, initialName: String, openAfterCreate: Boolean) {
@@ -289,28 +283,17 @@ class DefaultNavigator @Inject constructor(
     }
 
     override fun openCreateDirectRoom(context: Context) {
-        when (val currentSpace = spaceStateHandler.getCurrentSpace()) {
-            null -> CreateDirectRoomActivity.getIntent(context)
-            else -> SpacePeopleActivity.newIntent(context, currentSpace.roomId)
-        }.start(context)
+        CreateDirectRoomActivity.getIntent(context).start(context)
     }
 
     override fun openInviteUsersToRoom(fragmentActivity: FragmentActivity, roomId: String) {
-        when (val currentSpace = spaceStateHandler.getCurrentSpace()) {
-            null -> InviteUsersToRoomActivity.getIntent(fragmentActivity, roomId).start(fragmentActivity)
-            else -> showInviteToDialog(fragmentActivity, currentSpace, roomId)
-        }
+        InviteUsersToRoomActivity.getIntent(fragmentActivity, roomId).start(fragmentActivity)
     }
 
     private fun showInviteToDialog(fragmentActivity: FragmentActivity, currentSpace: RoomSummary, roomId: String) {
         InviteRoomSpaceChooserBottomSheet.showInstance(fragmentActivity.supportFragmentManager, currentSpace.roomId, roomId) { itemId ->
             InviteUsersToRoomActivity.getIntent(fragmentActivity, itemId).start(fragmentActivity)
         }
-    }
-
-    override fun openRoomsFiltering(context: Context) {
-        val intent = FilteredRoomsActivity.newIntent(context)
-        context.startActivity(intent)
     }
 
     override fun openSettings(context: Context, directAccess: Int) {
@@ -327,28 +310,8 @@ class DefaultNavigator @Inject constructor(
         debugNavigator.openDebugMenu(context)
     }
 
-    override fun openKeysBackupSetup(context: Context, showManualExport: Boolean) {
-        // if cross signing is enabled and trusted or not set up at all we should propose full 4S
-        sessionHolder.getSafeActiveSession()?.let { session ->
-            coroutineScope.launch {
-                if (session.cryptoService().crossSigningService().getMyCrossSigningKeys() == null ||
-                        session.cryptoService().crossSigningService().canCrossSign()) {
-                    (context as? AppCompatActivity)?.let {
-                        BootstrapBottomSheet.show(it.supportFragmentManager, SetupMode.NORMAL)
-                    }
-                } else {
-                    context.startActivity(KeysBackupSetupActivity.intent(context, showManualExport))
-                }
-            }
-        }
-    }
-
     override fun open4SSetup(fragmentActivity: FragmentActivity, setupMode: SetupMode) {
         BootstrapBottomSheet.show(fragmentActivity.supportFragmentManager, setupMode)
-    }
-
-    override fun openKeysBackupManager(context: Context) {
-        context.startActivity(KeysBackupManageActivity.intent(context))
     }
 
     override fun showGroupsUnsupportedWarning(context: Context) {

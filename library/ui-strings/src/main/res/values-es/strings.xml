@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Romantic Features -->
+    <string name="romantic_hub_title">💕 Nuestro Espacio Romántico</string>
+    <string name="romantic_days_title">📅 Días Juntos</string>
+    <string name="romantic_notes_title">💌 Notas de Amor</string>
+    <string name="romantic_gifts_title">🎁 Regalos Románticos</string>
+    <string name="romantic_challenges_title">🎯 Desafíos de Pareja</string>
+    <string name="romantic_time_capsules_title">⏳ Cápsulas del Tiempo</string>
+    <string name="romantic_settings_title">⚙️ Configuración Romántica</string>
+    <string name="send_kiss">💋 Enviar Beso</string>
+    <string name="send_hug">🤗 Enviar Abrazo</string>
+    <string name="romantic_affection_level">Nivel de Cariño</string>
+    <string name="romantic_tree_level">Nivel del Árbol de Relación</string>
+    <string name="romantic_unlocked_at">Desbloqueado a los %1$d días</string>
+    <string name="romantic_locked">🔒 Bloqueado</string>
+    <string name="romantic_send_gift">Enviar Regalo</string>
+    <string name="romantic_create_note">Crear Nota de Amor</string>
+    <string name="romantic_view_album">Ver Álbum</string>
+    <string name="romantic_start_challenge">Iniciar Desafío</string>
+    <string name="romantic_capsule_info">Las cápsulas del tiempo son mensajes para sus futuros yo</string>
+    <string name="romantic_reminder_title">Recordatorio de Amor</string>
+    <string name="romantic_reminder_message">¡No olvides enviar amor a tu pareja hoy! 💕</string>
+
     <string name="notice_room_invite_no_invitee">la invitación de %s</string>
     <string name="notice_room_invite">%1$s invitó a %2$s</string>
     <string name="notice_room_invite_you">%1$s te ha invitado</string>

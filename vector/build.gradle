@@ -187,6 +187,11 @@ dependencies {
     // Work
     api libs.androidx.work
 
+    // Room Database para features románticos
+    implementation "androidx.room:room-runtime:2.6.1"
+    implementation "androidx.room:room-ktx:2.6.1"
+    ksp "androidx.room:room-compiler:2.6.1"
+
     // Paging
     implementation libs.androidx.pagingRuntimeKtx
 
@@ -229,6 +234,8 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
     implementation libs.github.glide
+    // Lottie para animaciones románticas
+    implementation "com.airbnb.lottie:lottie-compose:6.4.0"
     kapt libs.github.glideCompiler
     implementation 'com.github.yalantis:ucrop:2.2.8'
 

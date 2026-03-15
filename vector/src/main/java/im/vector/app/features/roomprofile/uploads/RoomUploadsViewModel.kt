@@ -17,7 +17,6 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.VectorViewModel
-import im.vector.app.features.voicebroadcast.isVoiceBroadcast
 import kotlinx.coroutines.launch
 import org.matrix.android.sdk.api.session.Session
 import org.matrix.android.sdk.api.session.getRoom
@@ -71,8 +70,6 @@ class RoomUploadsViewModel @AssistedInject constructor(
                 token = result.nextToken
 
                 val groupedUploadEvents = result.uploadEvents
-                        // Remove voice broadcast chunks from the attachments
-                        .filterNot { it.root.asMessageAudioEvent().isVoiceBroadcast() }
                         .groupBy {
                             it.contentWithAttachmentContent.msgType == MessageType.MSGTYPE_IMAGE ||
                                     it.contentWithAttachmentContent.msgType == MessageType.MSGTYPE_VIDEO

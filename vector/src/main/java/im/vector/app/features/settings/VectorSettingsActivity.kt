@@ -23,9 +23,7 @@ import im.vector.app.core.platform.VectorBaseActivity
 import im.vector.app.databinding.ActivityVectorSettingsBinding
 import im.vector.app.features.discovery.DiscoverySettingsFragment
 import im.vector.app.features.navigation.SettingsActivityPayload
-import im.vector.app.features.settings.devices.VectorSettingsDevicesFragment
 import im.vector.app.features.settings.notifications.VectorSettingsNotificationFragment
-import im.vector.app.features.settings.threepids.ThreePidsSettingsFragment
 import im.vector.lib.core.utils.compat.getParcelableExtraCompat
 import im.vector.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.failure.GlobalError
@@ -73,19 +71,6 @@ class VectorSettingsActivity : VectorBaseActivity<ActivityVectorSettingsBinding>
                     replaceFragment(views.vectorSettingsPage, VectorSettingsAdvancedSettingsFragment::class.java, null, FRAGMENT_TAG)
                 SettingsActivityPayload.SecurityPrivacy ->
                     replaceFragment(views.vectorSettingsPage, VectorSettingsSecurityPrivacyFragment::class.java, null, FRAGMENT_TAG)
-                SettingsActivityPayload.SecurityPrivacyManageSessions -> {
-                    val fragmentClass = if (vectorPreferences.isNewSessionManagerEnabled()) {
-                        im.vector.app.features.settings.devices.v2.VectorSettingsDevicesFragment::class.java
-                    } else {
-                        VectorSettingsDevicesFragment::class.java
-                    }
-                    replaceFragment(
-                            views.vectorSettingsPage,
-                            fragmentClass,
-                            null,
-                            FRAGMENT_TAG
-                    )
-                }
                 SettingsActivityPayload.Notifications -> {
                     requestHighlightPreferenceKeyOnResume(VectorPreferences.SETTINGS_ENABLE_THIS_DEVICE_PREFERENCE_KEY)
                     replaceFragment(views.vectorSettingsPage, VectorSettingsNotificationFragment::class.java, null, FRAGMENT_TAG)
@@ -145,10 +130,6 @@ class VectorSettingsActivity : VectorBaseActivity<ActivityVectorSettingsBinding>
         return keyToHighlight
     }
 
-    override fun navigateToEmailAndPhoneNumbers() {
-        navigateTo(ThreePidsSettingsFragment::class.java)
-    }
-
     override fun handleInvalidToken(globalError: GlobalError.InvalidToken) {
         if (ignoreInvalidTokenError) {
             Timber.w("Ignoring invalid token global error")
@@ -171,7 +152,6 @@ class VectorSettingsActivity : VectorBaseActivity<ActivityVectorSettingsBinding>
             EXTRA_DIRECT_ACCESS_ROOT -> SettingsActivityPayload.Root
             EXTRA_DIRECT_ACCESS_ADVANCED_SETTINGS -> SettingsActivityPayload.AdvancedSettings
             EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY -> SettingsActivityPayload.SecurityPrivacy
-            EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY_MANAGE_SESSIONS -> SettingsActivityPayload.SecurityPrivacyManageSessions
             EXTRA_DIRECT_ACCESS_GENERAL -> SettingsActivityPayload.General
             EXTRA_DIRECT_ACCESS_NOTIFICATIONS -> SettingsActivityPayload.Notifications
             EXTRA_DIRECT_ACCESS_DISCOVERY_SETTINGS -> SettingsActivityPayload.DiscoverySettings()
@@ -188,10 +168,9 @@ class VectorSettingsActivity : VectorBaseActivity<ActivityVectorSettingsBinding>
         const val EXTRA_DIRECT_ACCESS_ROOT = 0
         const val EXTRA_DIRECT_ACCESS_ADVANCED_SETTINGS = 1
         const val EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY = 2
-        const val EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY_MANAGE_SESSIONS = 3
-        const val EXTRA_DIRECT_ACCESS_GENERAL = 4
-        const val EXTRA_DIRECT_ACCESS_NOTIFICATIONS = 5
-        const val EXTRA_DIRECT_ACCESS_DISCOVERY_SETTINGS = 6
+        const val EXTRA_DIRECT_ACCESS_GENERAL = 3
+        const val EXTRA_DIRECT_ACCESS_NOTIFICATIONS = 4
+        const val EXTRA_DIRECT_ACCESS_DISCOVERY_SETTINGS = 5
 
         private const val FRAGMENT_TAG = "VectorSettingsPreferencesFragment"
     }

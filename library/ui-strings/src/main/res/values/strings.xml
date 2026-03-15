@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Romantic Features -->
+    <string name="romantic_hub_title">💕 Our Romantic Space</string>
+    <string name="romantic_days_title">📅 Days Together</string>
+    <string name="romantic_notes_title">💌 Love Notes</string>
+    <string name="romantic_gifts_title">🎁 Romantic Gifts</string>
+    <string name="romantic_challenges_title">🎯 Couple Challenges</string>
+    <string name="romantic_time_capsules_title">⏳ Time Capsules</string>
+    <string name="romantic_settings_title">⚙️ Romantic Settings</string>
+    <string name="send_kiss">💋 Send Kiss</string>
+    <string name="send_hug">🤗 Send Hug</string>
+    <string name="romantic_affection_level">Affection Level</string>
+    <string name="romantic_tree_level">Relationship Tree Level</string>
+    <string name="romantic_unlocked_at">Unlocked at %1$d days</string>
+    <string name="romantic_locked">🔒 Locked</string>
+    <string name="romantic_send_gift">Send Gift</string>
+    <string name="romantic_create_note">Create Love Note</string>
+    <string name="romantic_view_album">View Album</string>
+    <string name="romantic_start_challenge">Start Challenge</string>
+    <string name="romantic_capsule_info">Time capsules are messages to your future selves</string>
+    <string name="romantic_reminder_title">Love Reminder</string>
+    <string name="romantic_reminder_message">Don\'t forget to send love to your partner today! 💕</string>
+
     <!-- Cross feature -->
     <plurals name="x_selected">
         <item quantity="one">%1$d selected</item>
