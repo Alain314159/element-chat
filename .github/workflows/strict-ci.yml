@@ -1,0 +1,166 @@
+name: Strict CI - Quality Gate
+
+on:
+  push:
+    branches: [ "main", "master", "develop", "stable" ]
+  pull_request:
+    branches: [ "main", "master", "develop", "stable" ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m"
+  _JAVA_OPTIONS: "-Xmx4g"
+
+jobs:
+  kotlin-compile-check:
+    name: "Kotlin Compilation"
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu'
+          cache: gradle
+      - uses: android-actions/setup-android@v3
+      - run: chmod +x gradlew
+      - run: ./gradlew clean compileGplayDebugKotlin --no-daemon -Pksp.incremental=false
+      - name: Upload compilation report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kotlin-compile-report
+          path: |
+            **/build/reports/
+            **/build/outputs/
+
+  lint-strict:
+    name: "Strict Lint"
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    needs: kotlin-compile-check
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu'
+          cache: gradle
+      - uses: android-actions/setup-android@v3
+      - run: chmod +x gradlew
+      - run: ./gradlew lintGplayDebug --no-daemon -Pksp.incremental=false
+      - name: Upload lint report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-report
+          path: |
+            vector-app/build/reports/lint-results-gplay-debug.html
+            vector-app/build/reports/lint-results-gplay-debug.xml
+            vector-app/build/reports/lint-results-gplay-debug.sarif
+          retention-days: 7
+          if-no-files-found: warn
+      - name: Publish lint results
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: vector-app/build/reports/lint-results-gplay-debug.sarif
+        continue-on-error: true
+
+  build-debug:
+    name: "Build Debug APK"
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    needs: lint-strict
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu'
+          cache: gradle
+      - uses: android-actions/setup-android@v3
+      - run: chmod +x gradlew
+      - run: ./gradlew assembleGplayDebug --no-daemon -Pksp.incremental=false
+      - name: Verify APK exists
+        run: test -n "$(find vector-app/build/outputs/apk/gplay/debug -name '*-debug.apk' -type f)" || (echo "No debug APK found" && exit 1)
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk-debug
+          path: vector-app/build/outputs/apk/gplay/debug/*.apk
+          retention-days: 14
+
+  code-quality:
+    name: "Code Quality"
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: kotlin-compile-check
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu'
+          cache: gradle
+      - run: chmod +x gradlew
+      - run: ./gradlew dependencyUpdates --no-daemon
+        continue-on-error: true
+
+  build-release:
+    name: "Build Release APK"
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    needs: lint-strict
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu'
+          cache: gradle
+      - uses: android-actions/setup-android@v3
+      - run: chmod +x gradlew
+      - run: ./gradlew assembleGplayRelease --no-daemon -Pksp.incremental=false
+      - name: Verify Release APK exists
+        run: test -n "$(find vector-app/build/outputs/apk/gplay/release -name '*-release.apk' -type f)" || (echo "No release APK found" && exit 1)
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk-release
+          path: vector-app/build/outputs/apk/gplay/release/*-release.apk
+          retention-days: 14
+
+  quality-gate-summary:
+    name: "Quality Gate Summary"
+    runs-on: ubuntu-latest
+    needs: [kotlin-compile-check, lint-strict, build-debug, build-release, code-quality]
+    if: always()
+    steps:
+      - name: Check job statuses
+        run: |
+          echo "## Quality Gate Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Kotlin Compilation | ${{ needs.kotlin-compile-check.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Strict Lint | ${{ needs.lint-strict.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Build Debug APK | ${{ needs.build-debug.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Build Release APK | ${{ needs.build-release.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Code Quality | ${{ needs.code-quality.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ needs.kotlin-compile-check.result }}" != "success" ] || \
+             [ "${{ needs.lint-strict.result }}" != "success" ] || \
+             [ "${{ needs.build-debug.result }}" != "success" ]; then
+            echo "❌ **Quality Gate FAILED**" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          else
+            echo "✅ **Quality Gate PASSED**" >> $GITHUB_STEP_SUMMARY
+          fi
