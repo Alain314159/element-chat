@@ -9,6 +9,7 @@ package im.vector.app.features.romantic.data.database
 
 import androidx.room.*
 import im.vector.app.features.romantic.data.dao.*
+import java.time.LocalDateTime
 
 @Database(
     entities = [
@@ -30,30 +31,25 @@ import im.vector.app.features.romantic.data.dao.*
         CoupleContractEntity::class,
         LoveCertificateEntity::class,
         RomanticReminderEntity::class,
-        RomanticUsageStatsEntity::class
+        RomanticUsageStatsEntity::class,
+        // Nuevas entidades para features románticos
+        KissEntity::class,
+        HugEntity::class,
+        RelationshipSettingsEntity::class,
+        RomanticGiftEntity::class,
+        LoveMessageEntity::class,
+        RomanticDateIdeaEntity::class,
+        RomanticChallengeEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = true
 )
 @TypeConverters(Converters::class)
 abstract class RomanticDatabase : RoomDatabase() {
-    
-    abstract fun loveNotesDao(): LoveNotesDao
-    abstract fun affectionStatsDao(): AffectionStatsDao
-    abstract fun loveAchievementsDao(): LoveAchievementsDao
-    abstract fun relationshipMilestonesDao(): RelationshipMilestonesDao
-    abstract fun romanticThemesDao(): RomanticThemesDao
-    abstract fun scheduledMessagesDao(): ScheduledMessagesDao
-    abstract fun timeCapsulesDao(): TimeCapsulesDao
-    abstract fun bucketListDao(): BucketListDao
-    abstract fun dateCalendarDao(): DateCalendarDao
-    abstract fun couplePlaylistDao(): CouplePlaylistDao
-    abstract fun loveVowsDao(): LoveVowsDao
-    abstract fun photoAlbumsDao(): PhotoAlbumsDao
-    abstract fun albumPhotosDao(): AlbumPhotosDao
-    abstract fun specialPlacesDao(): SpecialPlacesDao
-    abstract fun romanticRemindersDao(): RomanticRemindersDao
-    
+
+    // Único DAO existente - todos los demás fueron eliminados porque no existen
+    abstract fun romanticDao(): RomanticDao
+
     companion object {
         const val DATABASE_NAME = "cerdita_romantic_db"
     }
@@ -114,8 +110,106 @@ class Converters {
  */
 val MIGRATION_1_2 = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
-        // Ejemplo: Añadir nueva columna
-        // database.execSQL("ALTER TABLE love_notes ADD COLUMN new_column TEXT DEFAULT NULL")
+        // Crear nuevas tablas para features románticos
+        
+        // Tabla para besos
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `kisses` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `timestamp` INTEGER NOT NULL,
+                `senderId` TEXT NOT NULL,
+                `recipientId` TEXT NOT NULL,
+                `hugType` TEXT NOT NULL DEFAULT 'normal'
+            )
+        """)
+        
+        // Tabla para abrazos
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `hugs` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `timestamp` INTEGER NOT NULL,
+                `senderId` TEXT NOT NULL,
+                `recipientId` TEXT NOT NULL,
+                `hugType` TEXT NOT NULL DEFAULT 'normal'
+            )
+        """)
+        
+        // Tabla para configuración de relación
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `relationship_settings` (
+                `id` TEXT NOT NULL,
+                `timestamp` INTEGER NOT NULL,
+                `partnerName` TEXT,
+                `partnerUserId` TEXT,
+                PRIMARY KEY(`id`)
+            )
+        """)
+        
+        // Tabla para regalos románticos
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `romantic_gifts` (
+                `id` TEXT NOT NULL,
+                `giftType` TEXT NOT NULL,
+                `giftName` TEXT NOT NULL,
+                `message` TEXT,
+                `senderId` TEXT NOT NULL,
+                `recipientId` TEXT NOT NULL,
+                `sentAt` INTEGER NOT NULL,
+                `isAccepted` INTEGER NOT NULL DEFAULT 0,
+                `acceptedAt` INTEGER,
+                PRIMARY KEY(`id`)
+            )
+        """)
+        
+        // Tabla para mensajes de amor
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `love_messages` (
+                `id` TEXT NOT NULL,
+                `content` TEXT NOT NULL,
+                `messageType` TEXT NOT NULL,
+                `senderId` TEXT NOT NULL,
+                `recipientId` TEXT NOT NULL,
+                `createdAt` INTEGER NOT NULL,
+                `isRead` INTEGER NOT NULL DEFAULT 0,
+                `readAt` INTEGER,
+                PRIMARY KEY(`id`)
+            )
+        """)
+        
+        // Tabla para ideas de citas románticas
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `romantic_date_ideas` (
+                `id` TEXT NOT NULL,
+                `title` TEXT NOT NULL,
+                `description` TEXT NOT NULL,
+                `category` TEXT NOT NULL,
+                `estimatedCost` INTEGER NOT NULL DEFAULT 0,
+                `duration` INTEGER NOT NULL DEFAULT 60,
+                `isCompleted` INTEGER NOT NULL DEFAULT 0,
+                `completedAt` INTEGER,
+                `rating` INTEGER,
+                `notes` TEXT,
+                `createdAt` INTEGER NOT NULL,
+                PRIMARY KEY(`id`)
+            )
+        """)
+        
+        // Tabla para desafíos de pareja
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `romantic_challenges` (
+                `id` TEXT NOT NULL,
+                `title` TEXT NOT NULL,
+                `description` TEXT NOT NULL,
+                `challengeType` TEXT NOT NULL,
+                `difficulty` INTEGER NOT NULL DEFAULT 1,
+                `lovePoints` INTEGER NOT NULL DEFAULT 10,
+                `isCompleted` INTEGER NOT NULL DEFAULT 0,
+                `completedAt` INTEGER,
+                `expiresAt` INTEGER,
+                `createdAt` INTEGER NOT NULL,
+                PRIMARY KEY(`id`)
+            )
+        """)
     }
 }
 

@@ -27,6 +27,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -68,34 +70,49 @@ enum class NoteType {
 }
 
 class LoveNotesManager(context: Context) {
-    
+
     private val prefs: SharedPreferences = context.getSharedPreferences(
         PREFS_NAME, Context.MODE_PRIVATE
     )
-    
+    private val gson = Gson()
+
     companion object {
         private const val PREFS_NAME = "cerdita_love_notes"
         private const val KEY_NOTES = "love_notes_json"
     }
-    
+
     fun getAllNotes(): List<LoveNote> {
-        // Implementar carga desde SharedPreferences
-        // Por ahora retornamos notas de ejemplo
-        return getSampleNotes()
+        val notesJson = prefs.getString(KEY_NOTES, null) ?: return getSampleNotes()
+        val type = object : TypeToken<List<LoveNote>>() {}.type
+        return try {
+            gson.fromJson(notesJson, type) ?: getSampleNotes()
+        } catch (e: Exception) {
+            getSampleNotes()
+        }
     }
-    
+
     fun saveNote(note: LoveNote) {
-        // Implementar guardado
+        val notes = getAllNotes().toMutableList()
+        val existingIndex = notes.indexOfFirst { it.id == note.id }
+        if (existingIndex >= 0) {
+            notes[existingIndex] = note
+        } else {
+            notes.add(note)
+        }
+        val notesJson = gson.toJson(notes)
+        prefs.edit().putString(KEY_NOTES, notesJson).apply()
     }
-    
+
     fun deleteNote(noteId: String) {
-        // Implementar eliminación
+        val notes = getAllNotes().filter { it.id != noteId }
+        val notesJson = gson.toJson(notes)
+        prefs.edit().putString(KEY_NOTES, notesJson).apply()
     }
-    
+
     fun getUnreadNotes(): List<LoveNote> {
         return getAllNotes().filter { !it.isRead }
     }
-    
+
     fun getNotesForToday(): List<LoveNote> {
         val today = LocalDate.now()
         return getAllNotes().filter { it.scheduledFor == today }

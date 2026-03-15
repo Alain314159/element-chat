@@ -27,6 +27,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.edit
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 /**
@@ -160,7 +164,8 @@ fun AffectionCounterWidget(
     val stats by remember { mutableStateOf(affectionCounter.getStats()) }
     var kissScale by remember { mutableStateOf(1f) }
     var hugScale by remember { mutableStateOf(1f) }
-    
+    val scope = rememberCoroutineScope()
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -178,7 +183,7 @@ fun AffectionCounterWidget(
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFFFF6B6B)
             )
-            
+
             Surface(
                 color = Color(0xFFFFD700),
                 shape = RoundedCornerShape(16.dp)
@@ -202,9 +207,9 @@ fun AffectionCounterWidget(
                 }
             }
         }
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         // Botones de besar y abrazar
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -218,14 +223,14 @@ fun AffectionCounterWidget(
                     targetValue = kissScale,
                     animationSpec = spring()
                 )
-                
+
                 FloatingActionButton(
                     onClick = {
                         kissScale = 0.8f
                         onSendKiss()
                         affectionCounter.sendKiss()
-                        kotlinx.coroutines.GlobalScope.launch {
-                            kotlinx.coroutines.delay(100)
+                        scope.launch {
+                            delay(100)
                             kissScale = 1f
                         }
                     },
@@ -242,28 +247,28 @@ fun AffectionCounterWidget(
                         modifier = Modifier.size(40.dp)
                     )
                 }
-                
+
                 Spacer(modifier = Modifier.height(8.dp))
-                
+
                 Text(
                     text = "Besos",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium
                 )
-                
+
                 Text(
                     text = "💋 ${stats.kissesSent} enviados",
                     fontSize = 14.sp,
                     color = Color.Gray
                 )
-                
+
                 Text(
                     text = "💋 ${stats.kissesReceived} recibidos",
                     fontSize = 14.sp,
                     color = Color.Gray
                 )
             }
-            
+
             // Botón de abrazo
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -272,14 +277,14 @@ fun AffectionCounterWidget(
                     targetValue = hugScale,
                     animationSpec = spring()
                 )
-                
+
                 FloatingActionButton(
                     onClick = {
                         hugScale = 0.8f
                         onSendHug()
                         affectionCounter.sendHug()
-                        kotlinx.coroutines.GlobalScope.launch {
-                            kotlinx.coroutines.delay(100)
+                        scope.launch {
+                            delay(100)
                             hugScale = 1f
                         }
                     },
@@ -296,21 +301,21 @@ fun AffectionCounterWidget(
                         modifier = Modifier.size(40.dp)
                     )
                 }
-                
+
                 Spacer(modifier = Modifier.height(8.dp))
-                
+
                 Text(
                     text = "Abrazos",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium
                 )
-                
+
                 Text(
                     text = "🤗 ${stats.hugsSent} enviados",
                     fontSize = 14.sp,
                     color = Color.Gray
                 )
-                
+
                 Text(
                     text = "🤗 ${stats.hugsReceived} recibidos",
                     fontSize = 14.sp,
