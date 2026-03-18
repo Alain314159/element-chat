@@ -219,8 +219,152 @@ interface RomanticDao {
     suspend fun updateDailyStats(stats: DailyLoveStatsEntity)
 
     @Query("""
-        SELECT COUNT(*) FROM romantic_message_stats 
+        SELECT COUNT(*) FROM romantic_message_stats
         WHERE romanticWordsDetected LIKE '%' || :word || '%'
     """)
     suspend fun getWordUsageCount(word: String): Int
+
+    // ==================== MEJORAS DE FEATURES ROMÁNTICOS (Sección 10) ====================
+
+    // ==================== HUG REACTIONS ====================
+
+    @Query("SELECT * FROM hug_reactions WHERE hugId = :hugId ORDER BY timestamp DESC")
+    fun getHugReactions(hugId: Int): Flow<List<HugReactionEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertHugReaction(reaction: HugReactionEntity)
+
+    @Query("SELECT COUNT(*) FROM hug_reactions WHERE hugId = :hugId AND userId = :userId")
+    suspend fun hasUserReactedToHug(hugId: Int, userId: String): Boolean
+
+    @Query("UPDATE hug_reactions SET isNotified = 1 WHERE id = :id")
+    suspend fun markHugReactionAsNotified(id: Int)
+
+    @Query("SELECT * FROM hug_reactions WHERE isNotified = 0 AND userId = :userId ORDER BY timestamp DESC")
+    fun getUnnotifiedHugReactions(userId: String): Flow<List<HugReactionEntity>>
+
+    // ==================== MASCOT OUTFITS ====================
+
+    @Query("SELECT * FROM mascot_outfits ORDER BY rarity ASC")
+    fun getAllMascotOutfits(): Flow<List<MascotOutfitEntity>>
+
+    @Query("SELECT * FROM mascot_outfits WHERE id = :id")
+    suspend fun getMascotOutfitById(id: String): MascotOutfitEntity?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertMascotOutfit(outfit: MascotOutfitEntity)
+
+    @Update
+    suspend fun updateMascotOutfit(outfit: MascotOutfitEntity)
+
+    @Query("SELECT * FROM mascot_outfits WHERE isUnlocked = 1")
+    fun getUnlockedOutfits(): Flow<List<MascotOutfitEntity>>
+
+    @Query("UPDATE mascot_outfits SET isUnlocked = 1, unlockedAt = :unlockedAt WHERE id = :id")
+    suspend fun unlockMascotOutfit(id: String, unlockedAt: Long = System.currentTimeMillis())
+
+    @Query("SELECT * FROM mascot_inventory WHERE id = :userId LIMIT 1")
+    suspend fun getMascotInventory(userId: String): MascotInventoryEntity?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertMascotInventory(inventory: MascotInventoryEntity)
+
+    @Query("UPDATE mascot_inventory SET equippedOutfitId = :outfitId, lastUpdated = :lastUpdated WHERE id = :userId")
+    suspend fun equipMascotOutfit(userId: String, outfitId: String?, lastUpdated: Long = System.currentTimeMillis())
+
+    // ==================== CUSTOM MILESTONES ====================
+
+    @Query("SELECT * FROM custom_milestones ORDER BY date DESC")
+    fun getAllCustomMilestones(): Flow<List<CustomMilestoneEntity>>
+
+    @Query("SELECT * FROM custom_milestones WHERE id = :id")
+    suspend fun getCustomMilestoneById(id: String): CustomMilestoneEntity?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCustomMilestone(milestone: CustomMilestoneEntity)
+
+    @Update
+    suspend fun updateCustomMilestone(milestone: CustomMilestoneEntity)
+
+    @Query("DELETE FROM custom_milestones WHERE id = :id")
+    suspend fun deleteCustomMilestone(id: String)
+
+    @Query("SELECT * FROM custom_milestones WHERE isSynced = 0 ORDER BY createdAt ASC")
+    fun getUnsyncedMilestones(): Flow<List<CustomMilestoneEntity>>
+
+    @Query("UPDATE custom_milestones SET isSynced = 1, syncedAt = :syncedAt WHERE id = :id")
+    suspend fun markMilestoneAsSynced(id: String, syncedAt: Long = System.currentTimeMillis())
+
+    // ==================== CUSTOM COUPONS ====================
+
+    @Query("SELECT * FROM custom_coupons ORDER BY createdAt DESC")
+    fun getAllCustomCoupons(): Flow<List<CustomCouponEntity>>
+
+    @Query("SELECT * FROM custom_coupons WHERE id = :id")
+    suspend fun getCustomCouponById(id: String): CustomCouponEntity?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCustomCoupon(coupon: CustomCouponEntity)
+
+    @Update
+    suspend fun updateCustomCoupon(coupon: CustomCouponEntity)
+
+    @Query("DELETE FROM custom_coupons WHERE id = :id")
+    suspend fun deleteCustomCoupon(id: String)
+
+    @Query("UPDATE custom_coupons SET isRedeemed = 1, redeemedAt = :redeemedAt, redeemedBy = :redeemedBy WHERE id = :id")
+    suspend fun redeemCustomCoupon(
+        id: String,
+        redeemedAt: Long = System.currentTimeMillis(),
+        redeemedBy: String
+    )
+
+    @Query("SELECT * FROM coupon_redemption_history ORDER BY redeemedAt DESC")
+    fun getCouponRedemptionHistory(): Flow<List<CouponRedemptionHistoryEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCouponRedemptionHistory(history: CouponRedemptionHistoryEntity)
+
+    // ==================== LOCATION TRIGGERS ====================
+
+    @Query("SELECT * FROM location_triggers WHERE noteId = :noteId")
+    suspend fun getLocationTriggerForNote(noteId: String): LocationTriggerEntity?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertLocationTrigger(trigger: LocationTriggerEntity)
+
+    @Update
+    suspend fun updateLocationTrigger(trigger: LocationTriggerEntity)
+
+    @Query("SELECT * FROM location_triggers WHERE isTriggered = 0")
+    fun getActiveLocationTriggers(): Flow<List<LocationTriggerEntity>>
+
+    @Query("UPDATE location_triggers SET isTriggered = 1, triggeredAt = :triggeredAt WHERE id = :id")
+    suspend fun triggerLocation(id: Int, triggeredAt: Long = System.currentTimeMillis())
+
+    // ==================== COLLABORATIVE NOTES ====================
+
+    @Query("SELECT * FROM collaborative_notes ORDER BY lastModified DESC")
+    fun getAllCollaborativeNotes(): Flow<List<CollaborativeNoteEntity>>
+
+    @Query("SELECT * FROM collaborative_notes WHERE id = :id")
+    suspend fun getCollaborativeNoteById(id: String): CollaborativeNoteEntity?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCollaborativeNote(note: CollaborativeNoteEntity)
+
+    @Update
+    suspend fun updateCollaborativeNote(note: CollaborativeNoteEntity)
+
+    @Query("DELETE FROM collaborative_notes WHERE id = :id")
+    suspend fun deleteCollaborativeNote(id: String)
+
+    @Query("SELECT * FROM note_contributions WHERE noteId = :noteId ORDER BY `order` ASC")
+    fun getNoteContributions(noteId: String): Flow<List<NoteContributionEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertNoteContribution(contribution: NoteContributionEntity)
+
+    @Query("SELECT MAX(`order`) FROM note_contributions WHERE noteId = :noteId")
+    suspend fun getMaxContributionOrder(noteId: String): Int?
 }

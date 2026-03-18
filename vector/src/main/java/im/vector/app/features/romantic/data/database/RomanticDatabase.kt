@@ -44,9 +44,19 @@ import java.time.LocalDateTime
         LoveStatisticsEntity::class,
         RomanticMessageStatsEntity::class,
         SpecialDateEntity::class,
-        DailyLoveStatsEntity::class
+        DailyLoveStatsEntity::class,
+        // Mejoras de features románticos (Sección 10)
+        HugReactionEntity::class,
+        MascotOutfitEntity::class,
+        MascotInventoryEntity::class,
+        CustomMilestoneEntity::class,
+        CustomCouponEntity::class,
+        CouponRedemptionHistoryEntity::class,
+        LocationTriggerEntity::class,
+        CollaborativeNoteEntity::class,
+        NoteContributionEntity::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = true
 )
 @TypeConverters(Converters::class)
@@ -287,6 +297,161 @@ val MIGRATION_2_3 = object : Migration(2, 3) {
 
         // Insertar estadísticas iniciales
         database.execSQL("INSERT INTO love_statistics (id, lastUpdated) VALUES ('stats', strftime('%s', 'now') * 1000)")
+    }
+}
+
+/**
+ * Migración de versión 3 a 4 - Mejoras de Features Románticos (Sección 10)
+ * Añade: reacciones a abrazos, outfits de mascotas, hitos personalizables,
+ * cupones personalizados, y notas con ubicación
+ */
+val MIGRATION_3_4 = object : Migration(3, 4) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        // Tabla para reacciones a abrazos
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `hug_reactions` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `hugId` INTEGER NOT NULL,
+                `reactionType` TEXT NOT NULL,
+                `userId` TEXT NOT NULL,
+                `timestamp` INTEGER NOT NULL,
+                `isNotified` INTEGER NOT NULL DEFAULT 0
+            )
+        """)
+
+        // Tabla para outfits de mascotas
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `mascot_outfits` (
+                `id` TEXT NOT NULL,
+                `name` TEXT NOT NULL,
+                `type` TEXT NOT NULL,
+                `rarity` TEXT NOT NULL,
+                `unlockCondition` TEXT NOT NULL,
+                `unlockRequirement` INTEGER NOT NULL DEFAULT 0,
+                `coinCost` INTEGER NOT NULL DEFAULT 0,
+                `description` TEXT,
+                `iconUrl` TEXT,
+                `isUnlocked` INTEGER NOT NULL DEFAULT 0,
+                `unlockedAt` INTEGER,
+                PRIMARY KEY(`id`)
+            )
+        """)
+
+        // Tabla para inventario de mascotas
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `mascot_inventory` (
+                `id` TEXT NOT NULL,
+                `mascotId` TEXT NOT NULL,
+                `ownedOutfitIds` TEXT NOT NULL DEFAULT '',
+                `equippedOutfitId` TEXT,
+                `lastUpdated` INTEGER NOT NULL DEFAULT 0,
+                PRIMARY KEY(`id`)
+            )
+        """)
+
+        // Tabla para hitos personalizados
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `custom_milestones` (
+                `id` TEXT NOT NULL,
+                `title` TEXT NOT NULL,
+                `description` TEXT NOT NULL,
+                `date` INTEGER NOT NULL,
+                `photoUri` TEXT,
+                `audioNoteUri` TEXT,
+                `tags` TEXT NOT NULL DEFAULT '',
+                `isCustom` INTEGER NOT NULL DEFAULT 1,
+                `createdBy` TEXT NOT NULL,
+                `createdAt` INTEGER NOT NULL DEFAULT 0,
+                `isSynced` INTEGER NOT NULL DEFAULT 0,
+                `syncedAt` INTEGER,
+                PRIMARY KEY(`id`)
+            )
+        """)
+
+        // Tabla para cupones personalizados
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `custom_coupons` (
+                `id` TEXT NOT NULL,
+                `title` TEXT NOT NULL,
+                `description` TEXT NOT NULL,
+                `conditions` TEXT NOT NULL DEFAULT '',
+                `expirationDate` INTEGER,
+                `mediaAttachments` TEXT NOT NULL DEFAULT '',
+                `redemptionCount` INTEGER NOT NULL DEFAULT 1,
+                `maxRedemptions` INTEGER NOT NULL DEFAULT 1,
+                `isTransferable` INTEGER NOT NULL DEFAULT 1,
+                `createdBy` TEXT NOT NULL,
+                `createdAt` INTEGER NOT NULL DEFAULT 0,
+                `isRedeemed` INTEGER NOT NULL DEFAULT 0,
+                `redeemedAt` INTEGER,
+                `redeemedBy` TEXT,
+                PRIMARY KEY(`id`)
+            )
+        """)
+
+        // Tabla para historial de redención de cupones
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `coupon_redemption_history` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `couponId` TEXT NOT NULL,
+                `couponTitle` TEXT NOT NULL,
+                `redeemedBy` TEXT NOT NULL,
+                `redeemedAt` INTEGER NOT NULL DEFAULT 0,
+                `notes` TEXT,
+                `photoUri` TEXT
+            )
+        """)
+
+        // Tabla para triggers de ubicación
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `location_triggers` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `noteId` TEXT NOT NULL,
+                `latitude` REAL NOT NULL,
+                `longitude` REAL NOT NULL,
+                `radiusMeters` REAL NOT NULL,
+                `triggerOnce` INTEGER NOT NULL DEFAULT 1,
+                `isTriggered` INTEGER NOT NULL DEFAULT 0,
+                `triggeredAt` INTEGER,
+                `locationName` TEXT
+            )
+        """)
+
+        // Tabla para notas colaborativas
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `collaborative_notes` (
+                `id` TEXT NOT NULL,
+                `title` TEXT NOT NULL,
+                `isLocked` INTEGER NOT NULL DEFAULT 0,
+                `unlockCondition` TEXT,
+                `createdAt` INTEGER NOT NULL DEFAULT 0,
+                `createdBy` TEXT NOT NULL,
+                `lastModified` INTEGER NOT NULL DEFAULT 0,
+                PRIMARY KEY(`id`)
+            )
+        """)
+
+        // Tabla para contribuciones a notas colaborativas
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `note_contributions` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `noteId` TEXT NOT NULL,
+                `authorId` TEXT NOT NULL,
+                `content` TEXT NOT NULL,
+                `mediaAttachments` TEXT NOT NULL DEFAULT '',
+                `timestamp` INTEGER NOT NULL DEFAULT 0,
+                `order` INTEGER NOT NULL DEFAULT 0
+            )
+        """)
+
+        // Insertar outfits iniciales (comunes por defecto)
+        database.execSQL("""
+            INSERT INTO mascot_outfits (id, name, type, rarity, unlockCondition, unlockRequirement, coinCost, description, isUnlocked, unlockedAt)
+            VALUES 
+                ('outfit_default', 'Outfit Default', 'FULL', 'COMMON', 'DEFAULT', 0, 0, 'Outfit predeterminado de la mascota', 1, strftime('%s', 'now') * 1000),
+                ('hat_basic', 'Gorro Básico', 'HAT', 'COMMON', 'LEVEL', 5, 0, 'Un gorro sencillo para tu mascota', 0, NULL),
+                ('shirt_love', 'Camisa de Amor', 'SHIRT', 'RARE', 'XP', 100, 50, 'Camisa con corazones', 0, NULL)
+        """)
     }
 }
 

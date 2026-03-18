@@ -456,6 +456,320 @@ class RomanticRepository @Inject constructor(
     suspend fun getWordUsageCount(word: String): Int {
         return romanticDao.getWordUsageCount(word)
     }
+
+    // ==================== MEJORAS DE FEATURES ROMÁNTICOS (Sección 10) ====================
+
+    // ==================== HUG REACTIONS ====================
+
+    /**
+     * Obtiene las reacciones a un abrazo.
+     */
+    fun getHugReactions(hugId: Int): Flow<List<HugReactionEntity>> {
+        return romanticDao.getHugReactions(hugId)
+    }
+
+    /**
+     * Agrega una reacción a un abrazo.
+     */
+    suspend fun addHugReaction(hugId: Int, reactionType: String, userId: String) {
+        romanticDao.insertHugReaction(
+            HugReactionEntity(
+                hugId = hugId,
+                reactionType = reactionType,
+                userId = userId
+            )
+        )
+    }
+
+    /**
+     * Verifica si un usuario ya reaccionó a un abrazo.
+     */
+    suspend fun hasUserReactedToHug(hugId: Int, userId: String): Boolean {
+        return romanticDao.hasUserReactedToHug(hugId, userId)
+    }
+
+    /**
+     * Marca una reacción como notificada.
+     */
+    suspend fun markHugReactionAsNotified(id: Int) {
+        romanticDao.markHugReactionAsNotified(id)
+    }
+
+    /**
+     * Obtiene las reacciones no notificadas.
+     */
+    fun getUnnotifiedHugReactions(userId: String): Flow<List<HugReactionEntity>> {
+        return romanticDao.getUnnotifiedHugReactions(userId)
+    }
+
+    // ==================== MASCOT OUTFITS ====================
+
+    /**
+     * Obtiene todos los outfits de mascotas.
+     */
+    fun getAllMascotOutfits(): Flow<List<MascotOutfitEntity>> {
+        return romanticDao.getAllMascotOutfits()
+    }
+
+    /**
+     * Obtiene un outfit por ID.
+     */
+    suspend fun getMascotOutfitById(id: String): MascotOutfitEntity? {
+        return romanticDao.getMascotOutfitById(id)
+    }
+
+    /**
+     * Agrega un nuevo outfit.
+     */
+    suspend fun addMascotOutfit(outfit: MascotOutfitEntity) {
+        romanticDao.insertMascotOutfit(outfit)
+    }
+
+    /**
+     * Actualiza un outfit.
+     */
+    suspend fun updateMascotOutfit(outfit: MascotOutfitEntity) {
+        romanticDao.updateMascotOutfit(outfit)
+    }
+
+    /**
+     * Obtiene los outfits desbloqueados.
+     */
+    fun getUnlockedOutfits(): Flow<List<MascotOutfitEntity>> {
+        return romanticDao.getUnlockedOutfits()
+    }
+
+    /**
+     * Desbloquea un outfit.
+     */
+    suspend fun unlockMascotOutfit(id: String) {
+        romanticDao.unlockMascotOutfit(id)
+    }
+
+    /**
+     * Obtiene el inventario de un usuario.
+     */
+    suspend fun getMascotInventory(userId: String): MascotInventoryEntity? {
+        return romanticDao.getMascotInventory(userId)
+    }
+
+    /**
+     * Actualiza el inventario de un usuario.
+     */
+    suspend fun updateMascotInventory(inventory: MascotInventoryEntity) {
+        romanticDao.insertMascotInventory(inventory)
+    }
+
+    /**
+     * Equipa un outfit a la mascota.
+     */
+    suspend fun equipMascotOutfit(userId: String, outfitId: String?) {
+        romanticDao.equipMascotOutfit(userId, outfitId)
+    }
+
+    // ==================== CUSTOM MILESTONES ====================
+
+    /**
+     * Obtiene todos los hitos personalizados.
+     */
+    fun getCustomMilestones(): Flow<List<CustomMilestoneEntity>> {
+        return romanticDao.getAllCustomMilestones()
+    }
+
+    /**
+     * Obtiene un hito personalizado por ID.
+     */
+    suspend fun getCustomMilestoneById(id: String): CustomMilestoneEntity? {
+        return romanticDao.getCustomMilestoneById(id)
+    }
+
+    /**
+     * Crea un nuevo hito personalizado.
+     */
+    suspend fun createCustomMilestone(milestone: CustomMilestoneEntity) {
+        romanticDao.insertCustomMilestone(milestone)
+    }
+
+    /**
+     * Actualiza un hito personalizado.
+     */
+    suspend fun updateCustomMilestone(milestone: CustomMilestoneEntity) {
+        romanticDao.updateCustomMilestone(milestone)
+    }
+
+    /**
+     * Elimina un hito personalizado.
+     */
+    suspend fun deleteCustomMilestone(id: String) {
+        romanticDao.deleteCustomMilestone(id)
+    }
+
+    /**
+     * Obtiene los hitos no sincronizados.
+     */
+    fun getUnsyncedMilestones(): Flow<List<CustomMilestoneEntity>> {
+        return romanticDao.getUnsyncedMilestones()
+    }
+
+    /**
+     * Marca un hito como sincronizado.
+     */
+    suspend fun markMilestoneAsSynced(id: String) {
+        romanticDao.markMilestoneAsSynced(id)
+    }
+
+    // ==================== CUSTOM COUPONS ====================
+
+    /**
+     * Obtiene todos los cupones personalizados.
+     */
+    fun getCustomCoupons(): Flow<List<CustomCouponEntity>> {
+        return romanticDao.getAllCustomCoupons()
+    }
+
+    /**
+     * Obtiene un cupón personalizado por ID.
+     */
+    suspend fun getCustomCouponById(id: String): CustomCouponEntity? {
+        return romanticDao.getCustomCouponById(id)
+    }
+
+    /**
+     * Crea un nuevo cupón personalizado.
+     */
+    suspend fun createCustomCoupon(coupon: CustomCouponEntity) {
+        romanticDao.insertCustomCoupon(coupon)
+    }
+
+    /**
+     * Actualiza un cupón personalizado.
+     */
+    suspend fun updateCustomCoupon(coupon: CustomCouponEntity) {
+        romanticDao.updateCustomCoupon(coupon)
+    }
+
+    /**
+     * Elimina un cupón personalizado.
+     */
+    suspend fun deleteCustomCoupon(id: String) {
+        romanticDao.deleteCustomCoupon(id)
+    }
+
+    /**
+     * Redime un cupón personalizado.
+     */
+    suspend fun redeemCustomCoupon(id: String, redeemedBy: String) {
+        romanticDao.redeemCustomCoupon(id, redeemedBy = redeemedBy)
+    }
+
+    /**
+     * Obtiene el historial de redención de cupones.
+     */
+    fun getCouponRedemptionHistory(): Flow<List<CouponRedemptionHistoryEntity>> {
+        return romanticDao.getCouponRedemptionHistory()
+    }
+
+    /**
+     * Agrega un registro al historial de redención.
+     */
+    suspend fun addCouponRedemptionHistory(history: CouponRedemptionHistoryEntity) {
+        romanticDao.insertCouponRedemptionHistory(history)
+    }
+
+    // ==================== LOCATION TRIGGERS ====================
+
+    /**
+     * Obtiene el trigger de ubicación para una nota.
+     */
+    suspend fun getLocationTriggerForNote(noteId: String): LocationTriggerEntity? {
+        return romanticDao.getLocationTriggerForNote(noteId)
+    }
+
+    /**
+     * Agrega un trigger de ubicación a una nota.
+     */
+    suspend fun addLocationTrigger(trigger: LocationTriggerEntity) {
+        romanticDao.insertLocationTrigger(trigger)
+    }
+
+    /**
+     * Actualiza un trigger de ubicación.
+     */
+    suspend fun updateLocationTrigger(trigger: LocationTriggerEntity) {
+        romanticDao.updateLocationTrigger(trigger)
+    }
+
+    /**
+     * Obtiene los triggers de ubicación activos.
+     */
+    fun getActiveLocationTriggers(): Flow<List<LocationTriggerEntity>> {
+        return romanticDao.getActiveLocationTriggers()
+    }
+
+    /**
+     * Activa un trigger de ubicación.
+     */
+    suspend fun triggerLocation(id: Int) {
+        romanticDao.triggerLocation(id)
+    }
+
+    // ==================== COLLABORATIVE NOTES ====================
+
+    /**
+     * Obtiene todas las notas colaborativas.
+     */
+    fun getCollaborativeNotes(): Flow<List<CollaborativeNoteEntity>> {
+        return romanticDao.getAllCollaborativeNotes()
+    }
+
+    /**
+     * Obtiene una nota colaborativa por ID.
+     */
+    suspend fun getCollaborativeNoteById(id: String): CollaborativeNoteEntity? {
+        return romanticDao.getCollaborativeNoteById(id)
+    }
+
+    /**
+     * Crea una nueva nota colaborativa.
+     */
+    suspend fun createCollaborativeNote(note: CollaborativeNoteEntity) {
+        romanticDao.insertCollaborativeNote(note)
+    }
+
+    /**
+     * Actualiza una nota colaborativa.
+     */
+    suspend fun updateCollaborativeNote(note: CollaborativeNoteEntity) {
+        romanticDao.updateCollaborativeNote(note)
+    }
+
+    /**
+     * Elimina una nota colaborativa.
+     */
+    suspend fun deleteCollaborativeNote(id: String) {
+        romanticDao.deleteCollaborativeNote(id)
+    }
+
+    /**
+     * Obtiene las contribuciones a una nota colaborativa.
+     */
+    fun getNoteContributions(noteId: String): Flow<List<NoteContributionEntity>> {
+        return romanticDao.getNoteContributions(noteId)
+    }
+
+    /**
+     * Agrega una contribución a una nota colaborativa.
+     */
+    suspend fun addNoteContribution(contribution: NoteContributionEntity) {
+        romanticDao.insertNoteContribution(contribution)
+    }
+
+    /**
+     * Obtiene el orden máximo de contribuciones.
+     */
+    suspend fun getMaxContributionOrder(noteId: String): Int? {
+        return romanticDao.getMaxContributionOrder(noteId)
+    }
 }
 
 /**
