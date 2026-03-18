@@ -1,6 +1,6 @@
 /*
  * Copyright 2024 Cerdita App
- * 
+ *
  * Menú Principal de Funcionalidades Románticas
  * Integra todas las features románticas en un solo lugar
  */
@@ -30,6 +30,20 @@ import im.vector.app.features.romantic.games.LoveCardsGame
 import im.vector.app.features.romantic.features.LoveNotesManager
 
 /**
+ * Sell class para representar todas las características románticas navegables
+ */
+sealed class RomanticFeature {
+    object DaysTogether : RomanticFeature()
+    object LoveCards : RomanticFeature()
+    object KissCounter : RomanticFeature()
+    object HugsCounter : RomanticFeature()
+    object LoveNotes : RomanticFeature()
+    object RelationshipTree : RomanticFeature()
+    object RomanticEffects : RomanticFeature()
+    object Settings : RomanticFeature()
+}
+
+/**
  * Menú Principal Romántico
  * 
  * ACCESOS RÁPIDOS:
@@ -47,11 +61,11 @@ fun RomanticHubScreen(
     daysManager: RelationshipDaysManager,
     affectionCounter: AffectionCounter,
     notesManager: LoveNotesManager,
-    onNavigateToSettings: () -> Unit,
+    onNavigateToFeature: (RomanticFeature) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var showCreateNoteDialog by remember { mutableStateOf(false) }
-    
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -74,7 +88,7 @@ fun RomanticHubScreen(
                     titleContentColor = Color(0xFF333333)
                 ),
                 actions = {
-                    IconButton(onClick = onNavigateToSettings) {
+                    IconButton(onClick = { onNavigateToFeature(RomanticFeature.Settings) }) {
                         Icon(
                             imageVector = Icons.Default.Settings,
                             contentDescription = "Configuración"
@@ -100,10 +114,10 @@ fun RomanticHubScreen(
                     subtitle = daysManager.getFormattedTimeTogether(),
                     icon = Icons.Default.Favorite,
                     gradient = listOf(Color(0xFFFF6B6B), Color(0xFFFFB6C1)),
-                    onClick = { }
+                    onClick = { onNavigateToFeature(RomanticFeature.DaysTogether) }
                 )
             }
-            
+
             // Tarjetas de Amor
             item {
                 RomanticHubCard(
@@ -111,10 +125,10 @@ fun RomanticHubScreen(
                     subtitle = "Juego de preguntas",
                     icon = Icons.Default.CardGiftcard,
                     gradient = listOf(Color(0xFFFF69B4), Color(0xFFFF1493)),
-                    onClick = { }
+                    onClick = { onNavigateToFeature(RomanticFeature.LoveCards) }
                 )
             }
-            
+
             // Contador de Besos
             item {
                 RomanticHubCard(
@@ -122,10 +136,10 @@ fun RomanticHubScreen(
                     subtitle = "${affectionCounter.getStats().kissesSent} besos dados",
                     icon = Icons.Default.Favorite,
                     gradient = listOf(Color(0xFFFF1493), Color(0xFFDC143C)),
-                    onClick = { }
+                    onClick = { onNavigateToFeature(RomanticFeature.KissCounter) }
                 )
             }
-            
+
             // Contador de Abrazos
             item {
                 RomanticHubCard(
@@ -133,10 +147,10 @@ fun RomanticHubScreen(
                     subtitle = "${affectionCounter.getStats().hugsSent} abrazos dados",
                     icon = Icons.Default.Favorite,
                     gradient = listOf(Color(0xFFFFB347), Color(0xFFFF8C00)),
-                    onClick = { }
+                    onClick = { onNavigateToFeature(RomanticFeature.HugsCounter) }
                 )
             }
-            
+
             // Notas de Amor
             item {
                 val unreadNotes = notesManager.getUnreadNotes().size
@@ -146,10 +160,10 @@ fun RomanticHubScreen(
                     icon = Icons.Default.Mail,
                     gradient = listOf(Color(0xFFDDA0DD), Color(0xFFBA55D3)),
                     badge = if (unreadNotes > 0) unreadNotes else null,
-                    onClick = { }
+                    onClick = { onNavigateToFeature(RomanticFeature.LoveNotes) }
                 )
             }
-            
+
             // Árbol de Relación
             item {
                 val treeLevel = RelationshipTree.getTreeLevel(daysManager.getDaysTogether())
@@ -158,10 +172,10 @@ fun RomanticHubScreen(
                     subtitle = "Nivel: ${treeLevel.name}",
                     icon = Icons.Default.Park,
                     gradient = listOf(Color(0xFF90EE90), Color(0xFF228B22)),
-                    onClick = { }
+                    onClick = { onNavigateToFeature(RomanticFeature.RelationshipTree) }
                 )
             }
-            
+
             // Efectos Románticos
             item {
                 RomanticHubCard(
@@ -169,10 +183,10 @@ fun RomanticHubScreen(
                     subtitle = "Activa efectos especiales",
                     icon = Icons.Default.AutoAwesome,
                     gradient = listOf(Color(0xFFFFD700), Color(0xFFFFA500)),
-                    onClick = { }
+                    onClick = { onNavigateToFeature(RomanticFeature.RomanticEffects) }
                 )
             }
-            
+
             // Configuración
             item {
                 RomanticHubCard(
@@ -180,7 +194,7 @@ fun RomanticHubScreen(
                     subtitle = "Personaliza tu experiencia",
                     icon = Icons.Default.Settings,
                     gradient = listOf(Color(0xFF708090), Color(0xFF778899)),
-                    onClick = onNavigateToSettings
+                    onClick = { onNavigateToFeature(RomanticFeature.Settings) }
                 )
             }
         }

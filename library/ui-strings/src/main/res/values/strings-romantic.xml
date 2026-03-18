@@ -597,4 +597,28 @@
     <string name="romantic_you_got_this">You Got This! 💪</string>
     <string name="romantic_believe_in_you">I Believe in You ✨</string>
 
+    <!-- ==================== NEW ROMANTIC FEATURES ==================== -->
+    <string name="love_cards_title">🎴 Love Cards</string>
+    <string name="love_cards_subtitle">Romantic questions game</string>
+    <string name="love_cards_draw">Draw Card</string>
+    <string name="love_cards_share">Share with my partner</string>
+    <string name="love_cards_question">❓ Romantic Question</string>
+    <string name="love_cards_challenge">🎯 Challenge</string>
+    <string name="love_cards_message">💕 Love Message</string>
+    <string name="love_cards_memory">💭 Memory</string>
+    <string name="love_cards_wish">🎁 Wish</string>
+
+    <string name="affection_counter_title">💕 Affection Counter</string>
+    <string name="affection_counter_kisses">💋 Kisses</string>
+    <string name="affection_counter_hugs">🤗 Hugs</string>
+    <string name="affection_counter_sent">Sent</string>
+    <string name="affection_counter_received">Received</string>
+    <string name="affection_counter_streak">🔥 Streak</string>
+    <string name="affection_counter_points">⭐ Love Points</string>
+    <string name="affection_counter_achievements">🏆 Achievements</string>
+
+    <string name="romantic_effects_enabled">Effects Enabled</string>
+    <string name="romantic_effects_test">Test Effects</string>
+    <string name="romantic_effects_preview">Preview</string>
+
 </resources>

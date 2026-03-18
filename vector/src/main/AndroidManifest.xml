@@ -569,6 +569,42 @@
                 android:value=".features.romantic.ui.RomanticHubActivity" />
         </activity>
 
+        <!-- Love Cards Game Activity - Tarjetas de Amor game -->
+        <activity
+            android:name=".features.romantic.ui.LoveCardsGameActivity"
+            android:label="@string/love_cards_title"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="false"
+            android:parentActivityName=".features.romantic.ui.RomanticHubActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".features.romantic.ui.RomanticHubActivity" />
+        </activity>
+
+        <!-- Affection Counter Activity - Contador de Besos/Abrazos -->
+        <activity
+            android:name=".features.romantic.ui.AffectionCounterActivity"
+            android:label="@string/affection_counter_title"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="false"
+            android:parentActivityName=".features.romantic.ui.RomanticHubActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".features.romantic.ui.RomanticHubActivity" />
+        </activity>
+
+        <!-- Romantic Effects Activity - Efectos Románticos -->
+        <activity
+            android:name=".features.romantic.ui.RomanticEffectsActivity"
+            android:label="@string/romantic_effects_title"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="false"
+            android:parentActivityName=".features.romantic.ui.RomanticHubActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".features.romantic.ui.RomanticHubActivity" />
+        </activity>
+
     </application>
 
 </manifest>

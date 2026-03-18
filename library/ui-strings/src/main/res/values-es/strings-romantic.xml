@@ -596,4 +596,28 @@
     <string name="romantic_you_got_this">¡Tú Puedes! 💪</string>
     <string name="romantic_believe_in_you">Creo en Ti ✨</string>
 
+    <!-- ==================== NEW ROMANTIC FEATURES ==================== -->
+    <string name="love_cards_title">🎴 Tarjetas de Amor</string>
+    <string name="love_cards_subtitle">Juego de preguntas románticas</string>
+    <string name="love_cards_draw">Robar Carta</string>
+    <string name="love_cards_share">Compartir con mi pareja</string>
+    <string name="love_cards_question">❓ Pregunta Romántica</string>
+    <string name="love_cards_challenge">🎯 Reto</string>
+    <string name="love_cards_message">💕 Mensaje de Amor</string>
+    <string name="love_cards_memory">💭 Recuerdo</string>
+    <string name="love_cards_wish">🎁 Deseo</string>
+
+    <string name="affection_counter_title">💕 Contador de Amor</string>
+    <string name="affection_counter_kisses">💋 Besos</string>
+    <string name="affection_counter_hugs">🤗 Abrazos</string>
+    <string name="affection_counter_sent">Enviados</string>
+    <string name="affection_counter_received">Recibidos</string>
+    <string name="affection_counter_streak">🔥 Racha</string>
+    <string name="affection_counter_points">⭐ Puntos de Amor</string>
+    <string name="affection_counter_achievements">🏆 Logros</string>
+
+    <string name="romantic_effects_enabled">Efectos Activados</string>
+    <string name="romantic_effects_test">Probar Efectos</string>
+    <string name="romantic_effects_preview">Vista Previa</string>
+
 </resources>
