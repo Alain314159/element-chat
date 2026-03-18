@@ -1,5 +1,6 @@
 /*
  * Copyright 2019-2024 New Vector Ltd.
+ * Copyright 2024 Cerdita App
  *
  * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-Element-Commercial
  * Please see LICENSE files in the repository root for full details.
@@ -10,6 +11,7 @@ package im.vector.app.features.home.room.detail
 import android.net.Uri
 import android.view.View
 import im.vector.app.core.platform.VectorViewEvents
+import im.vector.app.features.romantic.ui.RomanticEffectType
 import im.vector.app.features.call.webrtc.WebRtcCall
 import org.matrix.android.sdk.api.session.events.model.content.WithHeldCode
 import org.matrix.android.sdk.api.session.widgets.model.Widget
@@ -78,8 +80,18 @@ sealed class RoomDetailViewEvents : VectorViewEvents {
             val grantedEvents: RoomDetailViewEvents
     ) : RoomDetailViewEvents()
 
+    // Standard chat effects (confetti, snowfall)
     data class StartChatEffect(val type: ChatEffect) : RoomDetailViewEvents()
     object StopChatEffects : RoomDetailViewEvents()
+    
+    // Romantic word detection effects
+    data class StartRomanticEffect(
+        val effectType: RomanticEffectType,
+        val category: String,
+        val eventId: String
+    ) : RoomDetailViewEvents()
+    object StopRomanticEffect : RoomDetailViewEvents()
+    
     object RoomReplacementStarted : RoomDetailViewEvents()
     object OpenElementCallWidget : RoomDetailViewEvents()
 }

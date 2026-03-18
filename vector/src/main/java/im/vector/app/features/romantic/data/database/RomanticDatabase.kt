@@ -39,9 +39,14 @@ import java.time.LocalDateTime
         RomanticGiftEntity::class,
         LoveMessageEntity::class,
         RomanticDateIdeaEntity::class,
-        RomanticChallengeEntity::class
+        RomanticChallengeEntity::class,
+        // Estadísticas de amor
+        LoveStatisticsEntity::class,
+        RomanticMessageStatsEntity::class,
+        SpecialDateEntity::class,
+        DailyLoveStatsEntity::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = true
 )
 @TypeConverters(Converters::class)
@@ -210,6 +215,78 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
                 PRIMARY KEY(`id`)
             )
         """)
+    }
+}
+
+/**
+ * Migración de versión 2 a 3 - Estadísticas de Amor
+ */
+val MIGRATION_2_3 = object : Migration(2, 3) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        // Tabla para estadísticas de amor
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `love_statistics` (
+                `id` TEXT NOT NULL,
+                `totalMessagesSent` INTEGER NOT NULL DEFAULT 0,
+                `totalMessagesReceived` INTEGER NOT NULL DEFAULT 0,
+                `totalHugsSent` INTEGER NOT NULL DEFAULT 0,
+                `totalKissesSent` INTEGER NOT NULL DEFAULT 0,
+                `totalNotesCreated` INTEGER NOT NULL DEFAULT 0,
+                `totalPhotosShared` INTEGER NOT NULL DEFAULT 0,
+                `totalAudiosSent` INTEGER NOT NULL DEFAULT 0,
+                `totalVideosSent` INTEGER NOT NULL DEFAULT 0,
+                `totalLinks` INTEGER NOT NULL DEFAULT 0,
+                `totalStickers` INTEGER NOT NULL DEFAULT 0,
+                `longestStreak` INTEGER NOT NULL DEFAULT 0,
+                `currentStreak` INTEGER NOT NULL DEFAULT 0,
+                `streakLastUpdated` INTEGER,
+                `relationshipStartDate` INTEGER,
+                `lastUpdated` INTEGER NOT NULL DEFAULT 0,
+                PRIMARY KEY(`id`)
+            )
+        """)
+
+        // Tabla para tracking de mensajes románticos
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `romantic_message_stats` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `content` TEXT NOT NULL,
+                `messageType` TEXT NOT NULL,
+                `senderId` TEXT NOT NULL,
+                `recipientId` TEXT NOT NULL,
+                `timestamp` INTEGER NOT NULL DEFAULT 0,
+                `romanticWordsDetected` TEXT NOT NULL DEFAULT ''
+            )
+        """)
+
+        // Tabla para fechas especiales
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `special_dates` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `title` TEXT NOT NULL,
+                `dateTimestamp` INTEGER NOT NULL,
+                `type` TEXT NOT NULL,
+                `createdAt` INTEGER NOT NULL DEFAULT 0
+            )
+        """)
+
+        // Tabla para estadísticas diarias
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `daily_love_stats` (
+                `date` TEXT NOT NULL,
+                `messagesSent` INTEGER NOT NULL DEFAULT 0,
+                `messagesReceived` INTEGER NOT NULL DEFAULT 0,
+                `hugsSent` INTEGER NOT NULL DEFAULT 0,
+                `kissesSent` INTEGER NOT NULL DEFAULT 0,
+                `notesCreated` INTEGER NOT NULL DEFAULT 0,
+                `photosShared` INTEGER NOT NULL DEFAULT 0,
+                `lastUpdated` INTEGER NOT NULL DEFAULT 0,
+                PRIMARY KEY(`date`)
+            )
+        """)
+
+        // Insertar estadísticas iniciales
+        database.execSQL("INSERT INTO love_statistics (id, lastUpdated) VALUES ('stats', strftime('%s', 'now') * 1000)")
     }
 }
 

@@ -19,6 +19,7 @@ package im.vector.app.features.romantic.data.repository
 import im.vector.app.features.romantic.data.dao.RomanticDao
 import im.vector.app.features.romantic.data.database.*
 import im.vector.app.features.romantic.data.database.RomanticDatabase
+import im.vector.app.features.romantic.stats.*
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -368,6 +369,92 @@ class RomanticRepository @Inject constructor(
      */
     suspend fun completeCoupleChallenge(id: String, completedAt: Long = System.currentTimeMillis()) {
         romanticDao.completeRomanticChallenge(id, completedAt)
+    }
+
+    // ==================== ESTADÍSTICAS DE AMOR ====================
+
+    /**
+     * Obtiene las estadísticas completas de amor.
+     */
+    suspend fun getLoveStatistics(): LoveStatisticsEntity? {
+        return romanticDao.getLoveStatistics()
+    }
+
+    /**
+     * Obtiene las estadísticas de amor como Flow.
+     */
+    fun getLoveStatisticsFlow(): Flow<LoveStatisticsEntity?> {
+        return romanticDao.getLoveStatisticsFlow()
+    }
+
+    /**
+     * Inserta o actualiza las estadísticas de amor.
+     */
+    suspend fun insertLoveStatistics(stats: LoveStatisticsEntity) {
+        romanticDao.insertLoveStatistics(stats)
+    }
+
+    /**
+     * Registra un mensaje para estadísticas.
+     */
+    suspend fun registerMessageStats(message: RomanticMessageStatsEntity) {
+        romanticDao.insertRomanticMessageStats(message)
+    }
+
+    /**
+     * Obtiene las fechas especiales.
+     */
+    fun getSpecialDates(): Flow<List<SpecialDateEntity>> {
+        return romanticDao.getAllSpecialDates()
+    }
+
+    /**
+     * Agrega una fecha especial.
+     */
+    suspend fun addSpecialDate(date: SpecialDateEntity) {
+        romanticDao.insertSpecialDate(date)
+    }
+
+    /**
+     * Elimina una fecha especial.
+     */
+    suspend fun deleteSpecialDate(date: SpecialDateEntity) {
+        romanticDao.deleteSpecialDate(date)
+    }
+
+    /**
+     * Obtiene las estadísticas diarias recientes.
+     */
+    fun getRecentDailyStats(): Flow<List<DailyLoveStatsEntity>> {
+        return romanticDao.getRecentDailyStats()
+    }
+
+    /**
+     * Obtiene las estadísticas de un día específico.
+     */
+    suspend fun getDailyStats(date: String): DailyLoveStatsEntity? {
+        return romanticDao.getDailyStats(date)
+    }
+
+    /**
+     * Inserta o actualiza las estadísticas diarias.
+     */
+    suspend fun insertDailyStats(stats: DailyLoveStatsEntity) {
+        romanticDao.insertDailyStats(stats)
+    }
+
+    /**
+     * Actualiza las estadísticas diarias.
+     */
+    suspend fun updateDailyStats(stats: DailyLoveStatsEntity) {
+        romanticDao.updateDailyStats(stats)
+    }
+
+    /**
+     * Obtiene el conteo de uso de una palabra romántica.
+     */
+    suspend fun getWordUsageCount(word: String): Int {
+        return romanticDao.getWordUsageCount(word)
     }
 }
 

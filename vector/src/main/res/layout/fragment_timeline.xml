@@ -131,6 +131,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- HugButton: Botón de abrazo romántico -->
+        <im.vector.app.features.romantic.ui.HugButtonView
+            android:id="@+id/hugButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:contentDescription="Enviar abrazo romántico"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/jumpToBottomView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/jumpToBottomView"
+            app:layout_constraintVertical_bias="0.0" />
+
         <im.vector.app.core.platform.BadgeFloatingActionButton
             android:id="@+id/jumpToBottomView"
             android:layout_width="wrap_content"
@@ -160,6 +175,14 @@
             android:layout_height="match_parent"
             android:background="?vctr_chat_effect_snow_background"
             android:visibility="invisible" />
+
+        <!-- Contenedor para efectos románticos (Compose) -->
+        <FrameLayout
+            android:id="@+id/romanticEffectContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:clickThrough="true" />
 
         <!-- Room not found layout -->
         <androidx.constraintlayout.widget.ConstraintLayout

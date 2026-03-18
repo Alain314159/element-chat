@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ROMANTIC THEME COLORS - Cerlita Light Theme -->
+    
+    <!-- Primary colors - Pink/rose palette -->
+    <color name="romantic_primary">#FFEC407A</color>
+    <color name="romantic_primary_variant">#FFC2185B</color>
+    <color name="romantic_on_primary">#FFFFFFFF</color>
+    
+    <!-- Secondary colors - Soft purple -->
+    <color name="romantic_secondary">#FFAB47BC</color>
+    <color name="romantic_secondary_variant">#FF8E24AA</color>
+    <color name="romantic_on_secondary">#FFFFFFFF</color>
+    
+    <!-- Background colors - Soft warm white -->
+    <color name="romantic_background">#FFFFF5F7</color>
+    <color name="romantic_surface">#FFFFFFFF</color>
+    <color name="romantic_on_background">#FF2D1F24</color>
+    <color name="romantic_on_surface">#FF2D1F24</color>
+    
+    <!-- Status bar and navigation -->
+    <color name="romantic_status_bar">#FFEC407A</color>
+    <color name="romantic_navigation_bar">#FFF8BBD0</color>
+    
+    <!-- Accent - Heart red -->
+    <color name="romantic_accent">#FFE91E63</color>
+    
+    <!-- Error -->
+    <color name="romantic_error">#FFD32F2F</color>
+    <color name="romantic_on_error">#FFFFFFFF</color>
+
+    <!-- ROMANTIC DARK THEME COLORS -->
+    
+    <!-- Primary colors - Deeper pink -->
+    <color name="romantic_primary_dark">#FFD81B60</color>
+    <color name="romantic_primary_variant_dark">#FF880E4F</color>
+    <color name="romantic_on_primary_dark">#FFFFFFFF</color>
+    
+    <!-- Secondary colors - Deep purple -->
+    <color name="romantic_secondary_dark">#FF7B1FA2</color>
+    <color name="romantic_secondary_variant_dark">#FF4A148C</color>
+    <color name="romantic_on_secondary_dark">#FFFFFFFF</color>
+    
+    <!-- Background colors - Dark warm -->
+    <color name="romantic_background_dark">#FF1A1A2E</color>
+    <color name="romantic_surface_dark">#FF16213E</color>
+    <color name="romantic_on_background_dark">#FFF5F5F5</color>
+    <color name="romantic_on_surface_dark">#FFF5F5F5</color>
+    
+    <!-- Status bar and navigation - Dark -->
+    <color name="romantic_status_bar_dark">#FF880E4F</color>
+    <color name="romantic_navigation_bar_dark">#FF1A1A2E</color>
+    
+    <!-- Accent - Bright pink -->
+    <color name="romantic_accent_dark">#FFFF4081</color>
+    
+    <!-- Error - Dark -->
+    <color name="romantic_error_dark">#FFEF5350</color>
+    <color name="romantic_on_error_dark">#FF000000</color>
+</resources>

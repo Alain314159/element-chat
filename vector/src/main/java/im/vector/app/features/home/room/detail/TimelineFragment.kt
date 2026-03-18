@@ -170,6 +170,13 @@ import im.vector.app.features.widgets.WidgetKind
 import im.vector.app.features.widgets.permissions.RoomWidgetPermissionBottomSheet
 import im.vector.lib.core.utils.timer.Clock
 import im.vector.lib.strings.CommonStrings
+import im.vector.app.features.romantic.ui.HugButtonView
+import im.vector.app.features.romantic.ui.HugButtonViewModel
+import im.vector.app.features.romantic.ui.HugButtonViewState
+import im.vector.app.features.romantic.ui.HugButtonAction
+import im.vector.app.features.romantic.ui.HugType
+import im.vector.app.features.romantic.ui.RomanticEffectType
+import im.vector.app.features.romantic.ui.createHugButtonIntegration
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -247,11 +254,13 @@ class TimelineFragment :
 
     private val timelineViewModel: TimelineViewModel by fragmentViewModel()
     private val messageComposerViewModel: MessageComposerViewModel by fragmentViewModel()
+    private val hugButtonViewModel: HugButtonViewModel by fragmentViewModel()
     private val debouncer = Debouncer(createUIHandler())
     private val itemVisibilityTracker = EpoxyVisibilityTracker()
 
     private lateinit var scrollOnNewMessageCallback: ScrollOnNewMessageCallback
     private lateinit var scrollOnHighlightedEventCallback: ScrollOnHighlightedEventCallback
+    private lateinit var hugButtonIntegration: HugButtonIntegration
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentTimelineBinding {
         return FragmentTimelineBinding.inflate(inflater, container, false)
@@ -327,6 +336,9 @@ class TimelineFragment :
         setupLiveLocationIndicator()
         setupBackPressHandling()
 
+        // Inicializar HugButton (botón de abrazos románticos)
+        setupHugButton()
+
         views.includeRoomToolbar.roomToolbarContentView.debouncedClicks {
             navigator.openRoomProfile(requireActivity(), timelineArgs.roomId)
         }
@@ -394,6 +406,8 @@ class TimelineFragment :
                 }
                 is RoomDetailViewEvents.StartChatEffect -> handleChatEffect(it.type)
                 RoomDetailViewEvents.StopChatEffects -> handleStopChatEffects()
+                is RoomDetailViewEvents.StartRomanticEffect -> handleRomanticEffect(it)
+                RoomDetailViewEvents.StopRomanticEffect -> handleStopRomanticEffect()
                 is RoomDetailViewEvents.DisplayAndAcceptCall -> acceptIncomingCall(it)
                 RoomDetailViewEvents.RoomReplacementStarted -> handleRoomReplacement()
                 RoomDetailViewEvents.OpenElementCallWidget -> handleOpenElementCallWidget()
@@ -475,6 +489,122 @@ class TimelineFragment :
         views.viewSnowFall.isVisible = false
         // when gone the effect is a bit buggy
         views.viewKonfetti.isInvisible = true
+    }
+
+    /**
+     * Maneja el inicio de un efecto romántico
+     * Se activa cuando se detecta una palabra romántica en el chat
+     */
+    private fun handleRomanticEffect(event: RoomDetailViewEvents.StartRomanticEffect) {
+        if (!requireContext().isAnimationEnabled()) {
+            Timber.d("Do not perform romantic effect, animations are disabled.")
+            return
+        }
+        
+        // Mostrar el contenedor de efectos románticos
+        views.romanticEffectContainer.isVisible = true
+        
+        // Aquí se renderizaría el efecto de Compose correspondiente
+        // Por ahora, mostramos un indicador visual simple
+        when (event.effectType) {
+            RomanticEffectType.HEARTS -> {
+                // Lluvia de corazones
+                showHeartRainEffect()
+            }
+            RomanticEffectType.KISS -> {
+                // Besos voladores
+                showFlyingKissEffect()
+            }
+            RomanticEffectType.SUNRISE -> {
+                // Efecto amanecer
+                showSunriseEffect()
+            }
+            RomanticEffectType.MOON -> {
+                // Efecto luna
+                showMoonEffect()
+            }
+            RomanticEffectType.CONFETTI -> {
+                // Confeti romántico
+                showRomanticConfettiEffect()
+            }
+            RomanticEffectType.CLOUDS -> {
+                // Nubes
+                showCloudsEffect()
+            }
+            RomanticEffectType.FLOWERS -> {
+                // Flores
+                showFlowersEffect()
+            }
+            RomanticEffectType.HUG -> {
+                // Abrazo
+                showHugEffect()
+            }
+            RomanticEffectType.SPARKLES -> {
+                // Brillos
+                showSparklesEffect()
+            }
+            RomanticEffectType.NONE -> {
+                // Sin efecto
+            }
+        }
+        
+        // Mostrar mensaje temporal de la categoría detectada
+        showSnackWithMessage("✨ ${event.category} detected! ✨")
+    }
+
+    /**
+     * Detiene todos los efectos románticos activos
+     */
+    private fun handleStopRomanticEffect() {
+        views.romanticEffectContainer.isVisible = false
+        views.romanticEffectContainer.removeAllViews()
+    }
+
+    // Funciones placeholder para cada efecto romántico
+    // Estas se implementarán con Compose cuando se integre el UI completo
+    private fun showHeartRainEffect() {
+        // TODO: Implementar con HeartRainEffect de Compose
+        Timber.d("Showing heart rain effect")
+    }
+
+    private fun showFlyingKissEffect() {
+        // TODO: Implementar con FlyingKissEffect de Compose
+        Timber.d("Showing flying kiss effect")
+    }
+
+    private fun showSunriseEffect() {
+        // TODO: Implementar efecto amanecer
+        Timber.d("Showing sunrise effect")
+    }
+
+    private fun showMoonEffect() {
+        // TODO: Implementar efecto luna
+        Timber.d("Showing moon effect")
+    }
+
+    private fun showRomanticConfettiEffect() {
+        // TODO: Implementar confeti romántico
+        Timber.d("Showing romantic confetti effect")
+    }
+
+    private fun showCloudsEffect() {
+        // TODO: Implementar efecto nubes
+        Timber.d("Showing clouds effect")
+    }
+
+    private fun showFlowersEffect() {
+        // TODO: Implementar efecto flores
+        Timber.d("Showing flowers effect")
+    }
+
+    private fun showHugEffect() {
+        // TODO: Implementar efecto abrazo
+        Timber.d("Showing hug effect")
+    }
+
+    private fun showSparklesEffect() {
+        // TODO: Implementar efecto brillos
+        Timber.d("Showing sparkles effect")
     }
 
     override fun onImageReady(uri: Uri?) {
@@ -722,6 +852,16 @@ class TimelineFragment :
 
     private fun setupActiveCallView() {
         currentCallsViewPresenter.bind(views.currentCallsView, this)
+    }
+
+    private fun setupHugButton() {
+        // Configurar integración del HugButton
+        hugButtonIntegration = createHugButtonIntegration(
+            hugButtonView = views.hugButton,
+            hugButtonViewModel = hugButtonViewModel,
+            roomId = timelineArgs.roomId
+        )
+        hugButtonIntegration.initialize()
     }
 
     private fun navigateToEvent(action: RoomDetailViewEvents.NavigateToEvent) {

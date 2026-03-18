@@ -1,5 +1,6 @@
 /*
  * Copyright 2019-2024 New Vector Ltd.
+ * Copyright 2024 Cerdita App
  *
  * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-Element-Commercial
  * Please see LICENSE files in the repository root for full details.
@@ -52,6 +53,7 @@ import im.vector.app.features.notifications.NotificationDrawerManager
 import im.vector.app.features.raw.wellknown.CryptoConfig
 import im.vector.app.features.raw.wellknown.getOutboundSessionKeySharingStrategyOrDefault
 import im.vector.app.features.raw.wellknown.withElementWellKnown
+import im.vector.app.features.romantic.ui.RomanticEffectType
 import im.vector.app.features.settings.VectorDataStore
 import im.vector.app.features.settings.VectorPreferences
 import im.vector.app.features.voicebroadcast.VoiceBroadcastHelper
@@ -145,7 +147,7 @@ class TimelineViewModel @AssistedInject constructor(
         private val voiceBroadcastHelper: VoiceBroadcastHelper,
         private val voteToPollUseCase: VoteToPollUseCase,
 ) : VectorViewModel<RoomDetailViewState, RoomDetailAction, RoomDetailViewEvents>(initialState),
-        Timeline.Listener, ChatEffectManager.Delegate, CallProtocolsChecker.Listener, LocationSharingServiceConnection.Callback {
+        Timeline.Listener, ChatEffectManager.Delegate, ChatEffectManager.RomanticDelegate, CallProtocolsChecker.Listener, LocationSharingServiceConnection.Callback {
 
     private val room = session.getRoom(initialState.roomId)
     private val eventId = initialState.eventId
@@ -926,6 +928,27 @@ class TimelineViewModel @AssistedInject constructor(
 
     override fun stopEffects() {
         _viewEvents.post(RoomDetailViewEvents.StopChatEffects)
+    }
+
+    /**
+     * Implementación del RomanticDelegate
+     * Se llama cuando el ChatEffectManager detecta una palabra romántica
+     */
+    override fun onRomanticWordDetected(
+        effectType: RomanticEffectType,
+        category: String,
+        event: TimelineEvent
+    ) {
+        // Solo disparar efectos si están habilitados en preferencias
+        if (vectorPreferences.chatEffectsEnabled()) {
+            _viewEvents.post(
+                RoomDetailViewEvents.StartRomanticEffect(
+                    effectType = effectType,
+                    category = category,
+                    eventId = event.eventId
+                )
+            )
+        }
     }
 
     private fun handleLoadMore(action: RoomDetailAction.LoadMoreTimelineEvents) {

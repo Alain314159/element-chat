@@ -449,12 +449,126 @@
             </intent-filter>
         </receiver>
 
-        <!-- Romantic Settings Activity -->
+        <!-- ============================================= -->
+        <!-- ROMANTIC FEATURES - CERLITA ACTIVITIES        -->
+        <!-- ============================================= -->
+        
+        <!-- Romantic Hub Activity - Main entry point for romantic features -->
         <activity
-            android:name="im.vector.app.features.romantic.settings.RomanticSettingsActivity"
-            android:label="Configuración Romántica"
-            android:theme="@style/Theme.Vector.Light"
-            android:exported="false" />
+            android:name=".features.romantic.ui.RomanticHubActivity"
+            android:label="@string/romantic_hub_title"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="false"
+            android:parentActivityName=".features.home.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".features.home.HomeActivity" />
+        </activity>
+
+        <!-- Romantic Settings Activity - Configuration for romantic features -->
+        <activity
+            android:name=".features.romantic.settings.RomanticSettingsActivity"
+            android:label="@string/romantic_settings_title"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Love Coupons Activity - Screen for love coupons management -->
+        <activity
+            android:name=".features.romantic.features.coupons.LoveCouponsActivity"
+            android:label="@string/love_coupons_title"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="false"
+            android:parentActivityName=".features.romantic.ui.RomanticHubActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".features.romantic.ui.RomanticHubActivity" />
+        </activity>
+
+        <!-- Love Notes Activity - Screen for love notes -->
+        <activity
+            android:name=".features.romantic.features.LoveNotesActivity"
+            android:label="@string/love_notes_title"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="false"
+            android:parentActivityName=".features.romantic.ui.RomanticHubActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".features.romantic.ui.RomanticHubActivity" />
+        </activity>
+
+        <!-- Time Capsules Activity - Screen for time capsules -->
+        <activity
+            android:name=".features.romantic.features.TimeCapsulesActivity"
+            android:label="@string/time_capsules_title"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="false"
+            android:parentActivityName=".features.romantic.ui.RomanticHubActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".features.romantic.ui.RomanticHubActivity" />
+        </activity>
+
+        <!-- Relationship Tree Activity - Screen for relationship tree/growth -->
+        <activity
+            android:name=".features.romantic.ui.RelationshipTreeActivity"
+            android:label="@string/relationship_tree_title"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="false"
+            android:parentActivityName=".features.romantic.ui.RomanticHubActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".features.romantic.ui.RomanticHubActivity" />
+        </activity>
+
+        <!-- First Times Registry Activity - Registry of first times together -->
+        <activity
+            android:name=".features.romantic.milestones.FirstTimesRegistryActivity"
+            android:label="@string/first_times_title"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="false"
+            android:parentActivityName=".features.romantic.ui.RomanticHubActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".features.romantic.ui.RomanticHubActivity" />
+        </activity>
+
+        <!-- Love Statistics Activity - Statistics and analytics for love -->
+        <activity
+            android:name=".features.romantic.stats.LoveStatisticsActivity"
+            android:label="@string/love_statistics_title"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="false"
+            android:parentActivityName=".features.romantic.ui.RomanticHubActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".features.romantic.ui.RomanticHubActivity" />
+        </activity>
+
+        <!-- Couple Games Activity - Games for couples -->
+        <activity
+            android:name=".features.romantic.games.CoupleGamesActivity"
+            android:label="@string/couple_games_title"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="false"
+            android:parentActivityName=".features.romantic.ui.RomanticHubActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".features.romantic.ui.RomanticHubActivity" />
+        </activity>
+
+        <!-- Mascot System Activity - Love mascots system -->
+        <activity
+            android:name=".features.romantic.ui.mascots.MascotSystemActivity"
+            android:label="@string/mascot_system_title"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="false"
+            android:parentActivityName=".features.romantic.ui.RomanticHubActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".features.romantic.ui.RomanticHubActivity" />
+        </activity>
+
     </application>
 
 </manifest>

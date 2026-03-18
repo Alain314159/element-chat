@@ -8,6 +8,7 @@ package im.vector.app.features.romantic.data.dao
 
 import androidx.room.*
 import im.vector.app.features.romantic.data.database.*
+import im.vector.app.features.romantic.stats.*
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -175,4 +176,51 @@ interface RomanticDao {
 
     @Query("UPDATE romantic_challenges SET isCompleted = 1, completedAt = :completedAt WHERE id = :id")
     suspend fun completeRomanticChallenge(id: String, completedAt: Long = System.currentTimeMillis())
+
+    // ==================== ESTADÍSTICAS DE AMOR ====================
+
+    @Query("SELECT * FROM love_statistics WHERE id = 'stats' LIMIT 1")
+    suspend fun getLoveStatistics(): LoveStatisticsEntity?
+
+    @Query("SELECT * FROM love_statistics WHERE id = 'stats' LIMIT 1")
+    fun getLoveStatisticsFlow(): Flow<LoveStatisticsEntity?>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertLoveStatistics(stats: LoveStatisticsEntity)
+
+    @Query("SELECT COUNT(*) FROM romantic_message_stats WHERE senderId = :userId")
+    suspend fun getTotalMessagesSent(userId: String): Int
+
+    @Query("SELECT COUNT(*) FROM romantic_message_stats WHERE recipientId = :userId")
+    suspend fun getTotalMessagesReceived(userId: String): Int
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertRomanticMessageStats(message: RomanticMessageStatsEntity)
+
+    @Query("SELECT * FROM special_dates ORDER BY dateTimestamp ASC")
+    fun getAllSpecialDates(): Flow<List<SpecialDateEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertSpecialDate(date: SpecialDateEntity)
+
+    @Delete
+    suspend fun deleteSpecialDate(date: SpecialDateEntity)
+
+    @Query("SELECT * FROM daily_love_stats ORDER BY date DESC LIMIT 30")
+    fun getRecentDailyStats(): Flow<List<DailyLoveStatsEntity>>
+
+    @Query("SELECT * FROM daily_love_stats WHERE date = :date LIMIT 1")
+    suspend fun getDailyStats(date: String): DailyLoveStatsEntity?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertDailyStats(stats: DailyLoveStatsEntity)
+
+    @Update
+    suspend fun updateDailyStats(stats: DailyLoveStatsEntity)
+
+    @Query("""
+        SELECT COUNT(*) FROM romantic_message_stats 
+        WHERE romanticWordsDetected LIKE '%' || :word || '%'
+    """)
+    suspend fun getWordUsageCount(word: String): Int
 }
