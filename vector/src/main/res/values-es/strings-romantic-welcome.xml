@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ======================================== -->
+    <!-- WELCOME SCREEN & ONBOARDING - CERLITA (ESPAÑOL) -->
+    <!-- ======================================== -->
+
+    <!-- ==================== WELCOME SCREEN ==================== -->
+    <string name="welcome_title">Cerdita 💕</string>
+    <string name="welcome_subtitle">Chat romántico para ustedes dos</string>
+    <string name="welcome_button">Comenzar</string>
+
+    <!-- ==================== ONBOARDING SCREENS ==================== -->
+    <!-- Screen 1: Conecta -->
+    <string name="onboarding_1_title">Conecta con tu pareja</string>
+    <string name="onboarding_1_description">Chat privado solo para ustedes dos. Un espacio íntimo donde el amor crece cada día.</string>
+
+    <!-- Screen 2: Comparte -->
+    <string name="onboarding_2_title">Comparte momentos</string>
+    <string name="onboarding_2_description">Envía abrazos, besos y efectos románticos. Haz que cada mensaje sea especial.</string>
+
+    <!-- Screen 3: Hagan crecer -->
+    <string name="onboarding_3_title">Hagan crecer su amor</string>
+    <string name="onboarding_3_description">Desbloquea logros, crea recuerdos juntos y vean florecer su árbol de amor.</string>
+
+    <!-- ==================== ONBOARDING NAVIGATION ==================== -->
+    <string name="skip">Saltar</string>
+    <string name="next">Siguiente</string>
+    <string name="get_started">Comenzar</string>
+
+</resources>

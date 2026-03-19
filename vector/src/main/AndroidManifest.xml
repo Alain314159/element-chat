@@ -605,6 +605,34 @@
                 android:value=".features.romantic.ui.RomanticHubActivity" />
         </activity>
 
+        <!-- ============================================= -->
+        <!-- WELCOME & ONBOARDING - CERLITA                -->
+        <!-- ============================================= -->
+
+        <!-- Welcome Activity - Pantalla de bienvenida inicial -->
+        <activity
+            android:name=".features.romantic.ui.screens.welcome.WelcomeActivity"
+            android:label="@string/welcome_title"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Romantic Onboarding Activity - Onboarding de 3 pantallas -->
+        <activity
+            android:name=".features.romantic.onboarding.RomanticOnboardingActivity"
+            android:label="@string/get_started"
+            android:theme="@style/Theme.Vector.Romantic"
+            android:exported="false"
+            android:parentActivityName=".features.romantic.ui.screens.welcome.WelcomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".features.romantic.ui.screens.welcome.WelcomeActivity" />
+        </activity>
+
     </application>
 
 </manifest>
