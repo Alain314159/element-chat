@@ -84,12 +84,18 @@ jobs:
         uses: actions/download-artifact@70fc10c6e5e1ce46ad2ea6f2b72d43f7d47b13c3 # v8.0.0
         with:
           name: vector-gplay-release-unsigned
-      - name: Show apks in artifact
-        run: ls -R ${{steps.download.outputs.download-path}}
+      - name: Find APK file
+        id: find-apk
+        run: |
+          APK_PATH=$(find "${{steps.download.outputs.download-path}}" -name "*.apk" -type f | head -1)
+          echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
+          echo "Found APK: $APK_PATH"
       - name: Execute exodus-standalone
-        uses: docker://exodusprivacy/exodus-standalone:latest
-        with:
-          args: /github/workspace/gplay/release/vector-gplay-universal-release-unsigned.apk -j -o /github/workspace/exodus.json -e 0
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/workspace \
+            exodusprivacy/exodus-standalone:latest \
+            /workspace/${{ steps.find-apk.outputs.apk_path }} -j -o /workspace/exodus.json -e 0
       - name: Upload exodus json report
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
@@ -100,5 +106,8 @@ jobs:
         env:
           SENTRY_ID: 447
         run: |
-          TRACKER_IDS=$(jq ".trackers[] | .id" exodus.json)
-          [ $TRACKER_IDS = ${{ env.SENTRY_ID }} ] || { echo '::error static analysis identified user tracking library' ; exit 1; }
+          if jq -e ".trackers[] | select(.id == $SENTRY_ID)" exodus.json > /dev/null; then
+            echo '::error::Static analysis identified user tracking library (Sentry ID: 447)'
+            exit 1
+          fi
+          echo "✓ No tracking libraries detected"

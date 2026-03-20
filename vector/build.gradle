@@ -188,9 +188,9 @@ dependencies {
     api libs.androidx.work
 
     // Room Database para features románticos
-    implementation "androidx.room:room-runtime:2.6.1"
-    implementation "androidx.room:room-ktx:2.6.1"
-    ksp "androidx.room:room-compiler:2.6.1"
+    implementation libs.androidx.room
+    implementation libs.androidx.roomKtx
+    ksp libs.androidx.roomCompiler
 
     // Paging
     implementation libs.androidx.pagingRuntimeKtx
