@@ -17,6 +17,7 @@ import dagger.hilt.components.SingletonComponent
 import im.vector.app.features.romantic.data.database.MIGRATION_1_2
 import im.vector.app.features.romantic.data.database.MIGRATION_2_3
 import im.vector.app.features.romantic.data.database.MIGRATION_3_4
+import im.vector.app.features.romantic.data.database.MIGRATION_4_5
 import im.vector.app.features.romantic.data.database.RomanticDatabase
 import im.vector.app.features.romantic.data.database.ROMANTIC_DATABASE_CALLBACK
 import javax.inject.Singleton
@@ -36,7 +37,7 @@ object RomanticDatabaseModule {
             RomanticDatabase.DATABASE_NAME
         )
             .addCallback(ROMANTIC_DATABASE_CALLBACK)
-            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
             .fallbackToDestructiveMigration()
             .build()
     }

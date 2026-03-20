@@ -9,6 +9,7 @@ package im.vector.app.features.romantic.data.database
 
 import androidx.room.*
 import im.vector.app.features.romantic.data.dao.*
+import im.vector.app.features.romantic.milestones.FirstTimeMilestone
 import java.time.LocalDateTime
 
 @Database(
@@ -54,16 +55,19 @@ import java.time.LocalDateTime
         CouponRedemptionHistoryEntity::class,
         LocationTriggerEntity::class,
         CollaborativeNoteEntity::class,
-        NoteContributionEntity::class
+        NoteContributionEntity::class,
+        // First Times Milestones
+        FirstTimeMilestone::class
     ],
-    version = 4,
+    version = 5,
     exportSchema = true
 )
 @TypeConverters(Converters::class)
 abstract class RomanticDatabase : RoomDatabase() {
 
-    // Único DAO existente - todos los demás fueron eliminados porque no existen
+    // DAOs registrados
     abstract fun romanticDao(): RomanticDao
+    abstract fun firstTimesDao(): FirstTimesDao
 
     companion object {
         const val DATABASE_NAME = "cerdita_romantic_db"
@@ -447,10 +451,38 @@ val MIGRATION_3_4 = object : Migration(3, 4) {
         // Insertar outfits iniciales (comunes por defecto)
         database.execSQL("""
             INSERT INTO mascot_outfits (id, name, type, rarity, unlockCondition, unlockRequirement, coinCost, description, isUnlocked, unlockedAt)
-            VALUES 
+            VALUES
                 ('outfit_default', 'Outfit Default', 'FULL', 'COMMON', 'DEFAULT', 0, 0, 'Outfit predeterminado de la mascota', 1, strftime('%s', 'now') * 1000),
                 ('hat_basic', 'Gorro Básico', 'HAT', 'COMMON', 'LEVEL', 5, 0, 'Un gorro sencillo para tu mascota', 0, NULL),
                 ('shirt_love', 'Camisa de Amor', 'SHIRT', 'RARE', 'XP', 100, 50, 'Camisa con corazones', 0, NULL)
+        """)
+    }
+}
+
+/**
+ * Migración de versión 4 a 5 - First Times Milestones
+ * Añade la tabla first_times_milestones para registrar hitos importantes
+ */
+val MIGRATION_4_5 = object : Migration(4, 5) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `first_times_milestones` (
+                `id` TEXT NOT NULL,
+                `title` TEXT NOT NULL,
+                `description` TEXT NOT NULL,
+                `date` INTEGER NOT NULL,
+                `category` TEXT NOT NULL,
+                `photoUris` TEXT NOT NULL DEFAULT '',
+                `audioNoteUri` TEXT,
+                `locationName` TEXT,
+                `locationLatitude` REAL,
+                `locationLongitude` REAL,
+                `tags` TEXT NOT NULL DEFAULT '',
+                `isPrivate` INTEGER NOT NULL DEFAULT 0,
+                `createdAt` INTEGER NOT NULL DEFAULT 0,
+                `anniversaryReminders` INTEGER NOT NULL DEFAULT 1,
+                PRIMARY KEY(`id`)
+            )
         """)
     }
 }

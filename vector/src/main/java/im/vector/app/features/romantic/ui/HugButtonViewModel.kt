@@ -42,7 +42,8 @@ data class HugButtonViewState(
     val state: HugButtonState = HugButtonState.Idle,
     val hugsSentCount: Int = 0,
     val affectionLevel: Int = 1,
-    val isEnabled: Boolean = true
+    val isEnabled: Boolean = true,
+    val roomId: String? = null
 )
 
 /**
@@ -196,9 +197,3 @@ private fun sendTextMessage(
     )
     room.sendService().send(textContent)
 }
-
-/**
- * Extensión para obtener roomId del estado inicial
- */
-private val HugButtonViewState.roomId: String?
-    get() = null // Se debería pasar como parámetro adicional

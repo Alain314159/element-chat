@@ -7,21 +7,14 @@
 
 package im.vector.app.features.romantic
 
+import im.vector.app.features.romantic.ui.RomanticEffectType
+
 /**
  * Tipos de efectos románticos disponibles
+ * NOTA: Este enum fue movido a im.vector.app.features.romantic.ui.RomanticEffectType
+ * Esta es solo una referencia para compatibilidad
  */
-enum class RomanticEffectType {
-    HEARTS,           // Lluvia de corazones para "te amo"
-    KISS,             // Besos para "besos", "muacks"
-    SUNRISE,          // Amanecer para "buenos días"
-    MOON,             // Luna para "buenas noches"
-    CONFETTI,         // Confeti para "feliz cumpleaños"
-    CLOUDS,           // Nubes para "te extraño"
-    FLOWERS,          // Flores para "gracias"
-    HUG,              // Abrazo para "abrazo"
-    SPARKLES,         // Brillos para cumplidos
-    NONE              // Sin efecto
-}
+typealias RomanticEffectType = im.vector.app.features.romantic.ui.RomanticEffectType
 
 /**
  * Categoría de palabra romántica
