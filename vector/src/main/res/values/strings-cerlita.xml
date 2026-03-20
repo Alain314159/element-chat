@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cerlita Design System - Strings -->
+<!-- Estética Cerdita & Koalita -->
+<resources>
+    <!-- ===== NOMBRE DE LA APP ===== -->
+    <string name="app_name">Cerlita</string>
+    <string name="app_tagline">Amor en cada mensaje</string>
+    <string name="app_description">Chat romántico para 2 personas</string>
+    
+    <!-- ===== MASCOTAS ===== -->
+    <string name="mascot_cerdita">Cerdita</string>
+    <string name="mascot_koalita">Koalita</string>
+    <string name="mascot_cerdita_description">Dulce y cariñosa</string>
+    <string name="mascot_koalita_description">Tierno y protector</string>
+    
+    <!-- ===== SALUDOS ===== -->
+    <string name="greeting_morning">¡Buenos días, amor! 💕</string>
+    <string name="greeting_afternoon">¡Buenas tardes, mi vida! 💖</string>
+    <string name="greeting_evening">¡Buenas noches, cielo! 💗</string>
+    <string name="greeting_night">¡Hasta mañana, corazón! 💓</string>
+    
+    <!-- ===== MENSAJES DE CERDITA ===== -->
+    <string name="cerdita_happy">¡Cerdita está feliz! 🐷💕</string>
+    <string name="cerdita_love">¡Cerdita está enamorada! 🐷💗</string>
+    <string name="cerdita_excited">¡Cerdita está emocionada! 🐷✨</string>
+    <string name="cerdita_shy">Cerdita está tímida… 🐷😊</string>
+    <string name="cerdita_sleeping">Cerdita está durmiendo… 🐷💤</string>
+    <string name="cerdita_surprised">¡Cerdita está sorprendida! 🐷😯</string>
+    
+    <!-- ===== MENSAJES DE KOALITA ===== -->
+    <string name="koalita_happy">¡Koalita está feliz! 🐨💚</string>
+    <string name="koalita_love">¡Koalita está enamorado! 🐨💗</string>
+    <string name="koalita_hugging">¡Koalita te manda un abrazo! 🐨🤗</string>
+    <string name="koalita_eating">Koalita está comiendo… 🐨🌿</string>
+    <string name="koalita_sleeping">Koalita está durmiendo… 🐨💤</string>
+    <string name="koalita_protecting">Koalita te protege… 🐨💪</string>
+    
+    <!-- ===== ACCIONES ROMÁNTICAS ===== -->
+    <string name="action_send_kiss">Enviar beso 💋</string>
+    <string name="action_send_hug">Enviar abrazo 🤗</string>
+    <string name="action_send_flower">Enviar flor 🌹</string>
+    <string name="action_send_gift">Enviar regalo 🎁</string>
+    <string name="action_send_heart">Enviar corazón ❤️</string>
+    <string name="action_send_coupon">Enviar cupón 💝</string>
+    
+    <!-- ===== ESTADOS DE RELACIÓN ===== -->
+    <string name="relationship_days">Días juntos</string>
+    <string name="relationship_messages">Mensajes enviados</string>
+    <string name="relationship_level">Nivel de amor</string>
+    <string name="relationship_memories">Recuerdos</string>
+    
+    <!-- ===== NOTIFICACIONES ===== -->
+    <string name="notification_new_message">Nuevo mensaje de amor 💕</string>
+    <string name="notification_kiss">¡Te mandaron un beso! 💋</string>
+    <string name="notification_hug">¡Te mandaron un abrazo! 🤗</string>
+    <string name="notification_gift">¡Tienes un regalo! 🎁</string>
+    <string name="notification_anniversary">¡Hoy es un día especial! 💖</string>
+    
+    <!-- ===== MENÚ ===== -->
+    <string name="menu_chat">Chat</string>
+    <string name="menu_profile">Perfil</string>
+    <string name="menu_memories">Recuerdos</string>
+    <string name="menu_settings">Configuración</string>
+    <string name="menu_romantic_hub">Centro Romántico</string>
+    <string name="menu_games">Juegos</string>
+    <string name="menu_couple_stats">Estadísticas de Pareja</string>
+    
+    <!-- ===== CONFIGURACIÓN ===== -->
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_cerdita">Tema Cerdita 🐷</string>
+    <string name="settings_theme_koalita">Tema Koalita 🐨</string>
+    <string name="settings_theme_romantic">Tema Romántico 💕</string>
+    <string name="settings_theme_night">Tema Noche 🌙</string>
+    <string name="settings_notifications">Notificaciones</string>
+    <string name="settings_sounds">Sonidos</string>
+    <string name="settings_privacy">Privacidad</string>
+    <string name="settings_language">Idioma</string>
+    
+    <!-- ===== ESTADÍSTICAS ===== -->
+    <string name="stats_total_messages">Total de mensajes</string>
+    <string name="stats_total_kisses">Total de besos</string>
+    <string name="stats_total_hugs">Total de abrazos</string>
+    <string name="stats_longest_streak">Racha más larga</string>
+    <string name="stats_favorite_emoji">Emoji favorito</string>
+    
+    <!-- ===== LOGROS ===== -->
+    <string name="achievement_first_message">Primer mensaje 💌</string>
+    <string name="achievement_first_week">Primera semana 💕</string>
+    <string name="achievement_first_month">Primer mes 💖</string>
+    <string name="achievement_first_year">Primer año 💗</string>
+    <string name="achievement_100_messages">100 mensajes 🎉</string>
+    <string name="achievement_1000_messages">1000 mensajes 🏆</string>
+    <string name="achievement_night_owl">Nocturno 🦉</string>
+    <string name="achievement_early_bird">Madrugador 🐦</string>
+    
+    <!-- ===== ERRORES ===== -->
+    <string name="error_no_connection">Sin conexión… 📶</string>
+    <string name="error_message_failed">Mensaje no enviado 😢</string>
+    <string name="error_loading">Cargando… ⏳</string>
+    <string name="error_not_found">No encontrado 🔍</string>
+    
+    <!-- ===== BIENVENIDA ===== -->
+    <string name="welcome_title">¡Bienvenido a Cerlita!</string>
+    <string name="welcome_subtitle">El chat romántico para 2</string>
+    <string name="welcome_cerdita">¡Hola! Soy Cerdita 🐷💕</string>
+    <string name="welcome_koalita">¡Y yo soy Koalita! 🐨💚</string>
+    <string name="welcome_description">Cerdita y Koalita te acompañarán en esta aventura de amor</string>
+    
+    <!-- ===== ONBOARDING ===== -->
+    <string name="onboarding_1_title">Conecta con tu pareja</string>
+    <string name="onboarding_1_description">Chatea en tiempo real con la persona que amas</string>
+    <string name="onboarding_2_title">Envía amor</string>
+    <string name="onboarding_2_description">Besos, abrazos y regalos virtuales</string>
+    <string name="onboarding_3_title">Crea recuerdos</string>
+    <string name="onboarding_3_description">Guarda momentos especiales para siempre</string>
+    <string name="onboarding_4_title">Personaliza</string>
+    <string name="onboarding_4_description">Elige tu tema favorito con Cerdita y Koalita</string>
+    
+    <!-- ===== BOTONES ===== -->
+    <string name="button_send">Enviar</string>
+    <string name="button_cancel">Cancelar</string>
+    <string name="button_ok">OK</string>
+    <string name="button_yes">Sí</string>
+    <string name="button_no">No</string>
+    <string name="button_start">Comenzar</string>
+    <string name="button_next">Siguiente</string>
+    <string name="button_back">Atrás</string>
+    <string name="button_save">Guardar</string>
+    <string name="button_delete">Eliminar</string>
+    <string name="button_edit">Editar</string>
+    <string name="button_share">Compartir</string>
+    <string name="button_invite">Invitar</string>
+    
+    <!-- ===== FRASES ROMÁNTICAS ===== -->
+    <string name="quote_love_1">Eres mi razón de ser 💕</string>
+    <string name="quote_love_2">Te amo más que ayer 💖</string>
+    <string name="quote_love_3">Eres mi todo 💗</string>
+    <string name="quote_love_4">Juntos para siempre 💓</string>
+    <string name="quote_love_5">Mi corazón es tuyo 💘</string>
+</resources>

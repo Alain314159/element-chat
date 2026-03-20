@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cerlita Design System - Colors -->
+<!-- Estética Cerdita & Koalita -->
+<resources>
+    <!-- ===== CERDITA PINK ===== -->
+    <!-- Color primario - Cerdita -->
+    <color name="cerdita_pink">#FFFF69B4</color>
+    <color name="cerdita_pink_light">#FFFFB6D9</color>
+    <color name="cerdita_pink_dark">#FFC51162</color>
+    
+    <!-- Cuerpo Cerdita -->
+    <color name="cerdita_body">#FFFFB6D9</color>
+    <color name="cerdita_body_shadow">#FFFF69B4</color>
+    <color name="cerdita_snout">#FFFF69B4</color>
+    <color name="cerdita_ears">#FFFF1493</color>
+    <color name="cerdita_cheeks">#FFFF69B4</color>
+    
+    <!-- ===== KOALITA GREEN ===== -->
+    <!-- Color secundario - Koalita -->
+    <color name="koalita_green">#FF4CAF50</color>
+    <color name="koalita_green_light">#FF81C784</color>
+    <color name="koalita_green_dark">#FF2E7D32</color>
+    
+    <!-- Cuerpo Koalita -->
+    <color name="koalita_body">#FF90A4AE</color>
+    <color name="koalita_body_shadow">#FF546E7A</color>
+    <color name="koalita_ears">#FF78909C</color>
+    <color name="koalita_ears_fluff">#FFECEFF1</color>
+    <color name="koalita_nose">#FF37474F</color>
+    
+    <!-- ===== AMOR ROMÁNTICO ===== -->
+    <color name="love_red">#FFE91E63</color>
+    <color name="love_pink">#FFFF1493</color>
+    <color name="love_golden">#FFFFD700</color>
+    
+    <!-- ===== FLORES ===== -->
+    <color name="rose_red">#FFD32F2F</color>
+    <color name="tulip_pink">#FFFF69B4</color>
+    <color name="sunflower_yellow">#FFFFEB3B</color>
+    <color name="daisy_white">#FFFFFFFF</color>
+    <color name="lavender_purple">#FF9C27B0</color>
+    <color name="cherry_blossom">#FFFFB7C5</color>
+    <color name="lotus_pink">#FFFFC0CB</color>
+    
+    <!-- ===== NEUTROS ===== -->
+    <color name="pure_white">#FFFFFFFF</color>
+    <color name="soft_white">#FFFFF5F7</color>
+    <color name="light_gray">#FFF5F5F5</color>
+    <color name="medium_gray">#FF9E9E9E</color>
+    <color name="dark_gray">#FF424242</color>
+    <color name="pure_black">#FF000000</color>
+    
+    <!-- ===== FONDOS ===== -->
+    <color name="background_light">#FFFFF9FC</color>
+    <color name="background_dark">#FF1A1A2E</color>
+    <color name="surface_light">#FFFFFFFF</color>
+    <color name="surface_dark">#FF2D2D44</color>
+    
+    <!-- ===== CHAT BUBBLES ===== -->
+    <color name="chat_bubble_me">#FFFF69B4</color>
+    <color name="chat_bubble_other">#FFE0E0E0</color>
+    <color name="chat_text_me">#FFFFFFFF</color>
+    <color name="chat_text_other">#FF000000</color>
+    
+    <!-- ===== ESTADOS ===== -->
+    <color name="success">#FF4CAF50</color>
+    <color name="error">#FFE91E63</color>
+    <color name="warning">#FFFF9800</color>
+    <color name="info">#FF2196F3</color>
+    
+    <!-- ===== GRADIENTES (ángulos) ===== -->
+    <!-- Gradiente Cerdita: 0° -->
+    <color name="gradient_cerdita_start">#FFFFB6D9</color>
+    <color name="gradient_cerdita_center">#FFFF69B4</color>
+    <color name="gradient_cerdita_end">#FFC51162</color>
+    
+    <!-- Gradiente Koalita: 0° -->
+    <color name="gradient_koalita_start">#FFA5D6A7</color>
+    <color name="gradient_koalita_center">#FF4CAF50</color>
+    <color name="gradient_koalita_end">#FF2E7D32</color>
+    
+    <!-- Gradiente Amor: 45° -->
+    <color name="gradient_love_start">#FFFF69B4</color>
+    <color name="gradient_love_center">#FFFF1493</color>
+    <color name="gradient_love_end">#FFE91E63</color>
+    
+    <!-- Gradiente Atardecer: 0° -->
+    <color name="gradient_sunset_start">#FFFF9A8B</color>
+    <color name="gradient_sunset_center">#FFFF6B9D</color>
+    <color name="gradient_sunset_end">#FFC44569</color>
+    
+    <!-- Gradiente Noche: 0° -->
+    <color name="gradient_night_start">#FF1A1A2E</color>
+    <color name="gradient_night_center">#FF16213E</color>
+    <color name="gradient_night_end">#FF0F3460</color>
+</resources>
