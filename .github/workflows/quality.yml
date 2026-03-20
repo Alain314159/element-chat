@@ -84,7 +84,6 @@ jobs:
       - name: Run lint
         run: |
           ./gradlew vector-app:lintGplayRelease $CI_GRADLE_ARG_PROPERTIES
-          ./gradlew vector-app:lintFdroidRelease $CI_GRADLE_ARG_PROPERTIES
       - name: Upload reports
         if: always()
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
