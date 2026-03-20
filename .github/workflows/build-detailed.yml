@@ -60,16 +60,7 @@ jobs:
           echo "=== Starting Gplay Debug Build ===" | tee build.log
           ./gradlew assembleGplayDebug $CI_GRADLE_ARG_PROPERTIES 2>&1 | tee -a build.log
           echo "=== Build completed with exit code: $? ===" | tee -a build.log
-        continue-on-error: true
-
-      - name: Build Debug APK (Fdroid) with full logging
-        id: build_fdroid_debug
-        if: always()
-        run: |
-          echo "=== Starting Fdroid Debug Build ===" | tee -a build.log
-          ./gradlew assembleFdroidDebug $CI_GRADLE_ARG_PROPERTIES 2>&1 | tee -a build.log
-          echo "=== Build completed with exit code: $? ===" | tee -a build.log
-        continue-on-error: true
+        continue-on-error: false
 
       - name: Capture build logs on failure
         if: failure()
@@ -138,13 +129,17 @@ jobs:
           echo "| Build Target | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|--------------|--------|" >> $GITHUB_STEP_SUMMARY
           echo "| Gplay Debug | ${{ steps.build_gplay_debug.outcome }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Fdroid Debug | ${{ steps.build_fdroid_debug.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📱 APK Information" >> $GITHUB_STEP_SUMMARY
+          echo "- **Flavor**: Google Play (with Firebase notifications)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Type**: Debug" >> $GITHUB_STEP_SUMMARY
+          echo "- **Use**: Testing and development" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           
           if [ -f error-report.md ]; then
             echo "### ⚠️ Build Failed - See [error report](error-report.md) for details" >> $GITHUB_STEP_SUMMARY
           else
-            echo "✅ All builds successful!" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Build successful!" >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Fail if any build failed
