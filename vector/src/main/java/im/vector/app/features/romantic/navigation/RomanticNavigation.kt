@@ -132,7 +132,7 @@ fun NavGraphBuilder.romanticNavGraph(
 
     // Juego de Tarjetas de Amor
     composable(route = RomanticNavRoutes.LOVE_CARDS_GAME) {
-        LoveCardsGameScreen(
+        LoveCardsGame(
             onBackClick = onNavigateBack
         )
     }

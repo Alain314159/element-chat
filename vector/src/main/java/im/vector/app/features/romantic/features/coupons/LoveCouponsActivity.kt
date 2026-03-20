@@ -240,7 +240,7 @@ fun CustomCouponCard(
             ) {
                 if (coupon.expirationDate != null) {
                     Text(
-                        text = "⏰ Vence: ${formatDate(coupon.expirationDate)}",
+                        text = "⏰ Vence: ${coupon.expirationDate?.let { formatDate(it) } ?: "Sin vencimiento"}",
                         fontSize = 11.sp,
                         color = if (isExpired) {
                             MaterialTheme.colorScheme.error

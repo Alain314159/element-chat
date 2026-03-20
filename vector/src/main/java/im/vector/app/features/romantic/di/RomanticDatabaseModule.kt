@@ -16,6 +16,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import im.vector.app.features.romantic.data.database.MIGRATION_1_2
 import im.vector.app.features.romantic.data.database.MIGRATION_2_3
+import im.vector.app.features.romantic.data.database.MIGRATION_3_4
 import im.vector.app.features.romantic.data.database.RomanticDatabase
 import im.vector.app.features.romantic.data.database.ROMANTIC_DATABASE_CALLBACK
 import javax.inject.Singleton
