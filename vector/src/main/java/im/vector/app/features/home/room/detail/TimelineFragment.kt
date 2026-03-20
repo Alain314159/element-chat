@@ -855,6 +855,9 @@ class TimelineFragment :
     }
 
     private fun setupHugButton() {
+        // Inicializar roomId en el ViewModel
+        hugButtonViewModel.setState { copy(roomId = timelineArgs.roomId) }
+        
         // Configurar integración del HugButton
         hugButtonIntegration = createHugButtonIntegration(
             hugButtonView = views.hugButton,
